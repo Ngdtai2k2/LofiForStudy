@@ -1,4 +1,5 @@
 const Media = require("../models/Media");
+const uploadMedia = require("./uploadMediaController");
 
 const mediaController = {
   createMedia: async (req, res) => {
@@ -34,9 +35,9 @@ const mediaController = {
     }
   },
 
-  deleteMedia: async (req, res, media) => {
+  deleteMedia: async (mediaId) => {
     try {
-      await Media.findByIdAndDelete(media);
+      await Media.findByIdAndDelete(mediaId);
       return true;
     } catch (error) {
       return false;
