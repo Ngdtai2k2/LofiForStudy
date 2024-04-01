@@ -10,9 +10,6 @@ const mediaSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    description: {
-      type: String,
-    },
     cloudinary_id: {
       type: String,
     },
