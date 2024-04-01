@@ -5,6 +5,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 
 const authRoute = require("./routes/auth");
+const audioRoute = require("./routes/audio");
 
 const app = express();
 dotenv.config();
@@ -28,6 +29,7 @@ app.use(cookieParser());
 app.use(express.json());
 
 app.use("/api/v1/auth", authRoute);
+app.use("/api/v1/audio", audioRoute);
 
 app.listen(8000, () => {
   console.log(">>> Server running on port 8000!");
