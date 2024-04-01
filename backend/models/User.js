@@ -25,7 +25,7 @@ const userSchema = new mongoose.Schema(
     },
     about: {
       type: String,
-      default: "Hello world!",
+      default: null,
     },
     isAdmin: {
       type: Boolean,

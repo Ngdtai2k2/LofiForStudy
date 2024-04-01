@@ -4,6 +4,8 @@ const dotenv = require("dotenv");
 const express = require("express");
 const mongoose = require("mongoose");
 
+const authRoute = require("./routes/auth");
+
 const app = express();
 dotenv.config();
 
@@ -24,6 +26,8 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(express.json());
+
+app.use("/api/v1/auth", authRoute);
 
 app.listen(8000, () => {
   console.log(">>> Server running on port 8000!");
