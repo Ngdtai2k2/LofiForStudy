@@ -2,7 +2,6 @@ const uploadMediaController = require("./uploadMediaController");
 const mediaController = require("./mediaController");
 const Audio = require("../models/Audio");
 const createOptions = require("../configs/createOptions");
-const cloudinary = require("../configs/cloudinary");
 
 const audioController = {
   createAudio: async (req, res) => {
