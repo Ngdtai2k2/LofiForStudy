@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const mongoosePaginate = require("mongoose-paginate-v2");
 
 const todoListSchema = new mongoose.Schema(
   {
@@ -36,5 +37,7 @@ const todoListSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+todoListSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model("TodoList", todoListSchema);
