@@ -26,7 +26,6 @@ body {
     both;
   z-index: 2;
   position: relative;
-  bottom: -200px;
   width: 100%;
   color: white;
   font-family: 'Montserrat', sans-serif;
@@ -58,14 +57,11 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   height: 100%;
-  display: flex;
-  flex-direction: column;
 }
 
 .subtitle {
   z-index: 2;
   position: absolute;
-  top: 42%;
   width: 100%;
   color: white;
   font-family: 'Montserrat', sans-serif;
@@ -109,20 +105,20 @@ body {
 }
 
 .music-notes-1 {
-  top: 250px;
-  left: 290px;
+  top: 370px;
+  left: 280px;
   color: white;
 }
 
 .music-notes-2 {
-  top: 220px;
-  left: 260px;
+  top: 300px;
+  left: 235px;
   color: white;
 }
 
 .music-notes-3 {
-  top: 320px;
-  left: 250px;
+  top: 440px;
+  left: 208px;
   color: white;
 }
 
@@ -157,10 +153,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 20;
 }
 
-.button {
+.button-effect {
   min-width: 300px;
   min-height: 50px;
   font-family: 'Montserrat', sans-serif;
@@ -186,7 +181,7 @@ body {
   font-size: 15px;
 }
 
-button::before {
+.button-effect::before {
   content: '';
   border-radius: 50px;
   min-width: calc(300px + 12px);
@@ -202,18 +197,18 @@ button::before {
   z-index: -2;
 }
 
-.button:hover,
-.button:focus {
+.button-effect:hover,
+.button-effect:focus {
   color: #ffffff;
   transform: translateY(-6px);
 }
 
-button:hover::before,
-button:focus::before {
+.button-effect:hover::before,
+.button-effect:focus::before {
   opacity: 1;
 }
 
-button::after {
+.button-effect::after {
   content: '';
   width: 30px;
   height: 30px;
@@ -227,8 +222,8 @@ button::after {
   animation: ring 1.5s infinite;
 }
 
-button:hover::after,
-button:focus::after {
+.button-effect:hover::after,
+.button-effect:focus::after {
   cursor: none;
   pointer-events: none;
 }
@@ -246,7 +241,7 @@ button:focus::after {
   }
 }
 
-.button {
+.button-effect {
   -webkit-animation: fade-in-fwd 0.6s cubic-bezier(0.39, 0.575, 0.565, 1) 4.7s
     both;
   animation: fade-in-fwd 0.6s cubic-bezier(0.39, 0.575, 0.565, 1) 4.7s both;
