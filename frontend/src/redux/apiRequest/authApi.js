@@ -25,18 +25,20 @@ export const loginUser = async (user, dispatch, navigate) => {
     dispatch(loginSuccess(res.data));
     toast.success(res.data.message, toastTheme);
     navigate('/music');
+    window.location.reload();
   } catch (err) {
     dispatch(loginFailed(err.response.data));
     toast.error(err.response.data.message, toastTheme);
   }
 };
 
-export const registerUser = async (user, dispatch, navigate) => {
+export const registerUser = async (user, dispatch, setTabIndex) => {
   dispatch(registerStart());
   try {
     await axios.post(BaseApi + '/auth/register', user);
     dispatch(registerSuccess());
-    navigate('/login');
+    toast.success('Successful account registration!', toastTheme);
+    setTabIndex(0);
   } catch (err) {
     dispatch(registerFailed());
   }
