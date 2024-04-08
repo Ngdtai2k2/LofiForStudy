@@ -31,11 +31,6 @@ export default function NavigationBar() {
   const [openModal, setOpenModal] = useState(false);
   const { mode, setMode } = useColorScheme();
 
-  const theme = useTheme();
-  const isDarkMode = theme.palette.mode === 'dark';
-  const backgroundColorAppBar = isDarkMode ? '#121212' : '#f4f4f4';
-  const colorAppBar = isDarkMode ? '#f4f4f4' : '#121212';
-
   const user = useSelector((state) => state.auth.login?.currentUser);
   const accessToken = user?.accessToken;
   const id = user?._id;
@@ -77,7 +72,7 @@ export default function NavigationBar() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
         position="fixed"
-        sx={{ backgroundColor: backgroundColorAppBar, color: colorAppBar }}
+        sx={{ backgroundColor: "#0000005c", color: "#ffffff" }}
       >
         <Toolbar variant="dense">
           <IconButton
@@ -105,7 +100,7 @@ export default function NavigationBar() {
             component="div"
             sx={{ flexGrow: 1 }}
           >
-            <Link href="/" underline="none" variant="inherit">
+            <Link href="/" underline="none" variant="inherit" color="#ffffff">
               Lofi For Study
             </Link>
           </Typography>
