@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useTheme } from '@emotion/react';
 import { useColorScheme } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
