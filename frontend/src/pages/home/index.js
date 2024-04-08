@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import React, { useEffect } from 'react';
-import { Container, Grid, Button, Box } from '@mui/material';
+import { Container, Grid } from '@mui/material';
 import backgroundIntro from './../../assets/images/background-intro.gif';
 
 import './styles.css';
@@ -33,12 +33,12 @@ export default function Home() {
                 <div className="bubble3"></div>
               </div>
               <div className="wrap">
-                  <button
-                    className="button-effect"
-                    onClick={() => navigate('/music')}
-                  >
-                    Let's study now!
-                  </button>
+                <button
+                  className="button-effect"
+                  onClick={() => navigate('/music')}
+                >
+                  Let's study now!
+                </button>
               </div>
             </div>
           </Grid>
