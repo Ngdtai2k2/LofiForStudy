@@ -10,9 +10,10 @@ import { store, persistor } from './redux/store';
 import reportWebVitals from './reportWebVitals';
 import themes from './themes';
 import App from './App';
-import './index.css';
 
+import './index.css';
 import 'video-react/dist/video-react.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
