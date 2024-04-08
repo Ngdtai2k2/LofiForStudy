@@ -6,4 +6,4 @@ export const toastTheme = {
   transition: Flip,
 };
 
-export const BaseApi = 'http://localhost:8000/api/v1';
+export const BaseApi = process.env.REACT_APP_BASE_URL;
