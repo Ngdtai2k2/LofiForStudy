@@ -13,11 +13,7 @@ export default function Home() {
 
   return (
     <div className="background-image">
-      <img
-        src={backgroundIntro}
-        alt="Background intro"
-        className="w-100 h-100 img-fluid"
-      />
+      <img src={backgroundIntro} alt="Background intro" className="img-fluid" />
       <Container maxWidth="xl">
         <Grid container justifyContent="center">
           <Grid item xs={12} md={6} textAlign="center">
