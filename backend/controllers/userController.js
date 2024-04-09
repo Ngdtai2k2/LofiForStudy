@@ -1,7 +1,7 @@
 const User = require("../models/User");
 const mongoose = require("mongoose");
 
-const uploadMediaController = require("./uploadMediaController");
+const uploadCloudinaryController = require("./uploadCloudinaryController");
 const mediaController = require("./mediaController");
 const createOptions = require("./../configs/createOptions");
 
@@ -65,8 +65,8 @@ const userController = {
         const media = user?.media;
         if (media) {
           if (
-            !(await mediaController.deleteMedia(req, res, media._id)) ||
-            !(await uploadMediaController.deleteFile(media.cloudinary_id))
+            !(await mediaController.delete(req, res, media._id)) ||
+            !(await uploadCloudinaryController.deleteFile(media.cloudinary_id))
           ) {
             return res
               .status(400)
@@ -74,7 +74,7 @@ const userController = {
           }
         }
 
-        const data = await uploadMediaController.uploadImage(req, res);
+        const data = await uploadCloudinaryController.uploadImage(req, res);
         if (data === null) {
           return res.status(400).json({ message: "Image not uploaded!" });
         }
