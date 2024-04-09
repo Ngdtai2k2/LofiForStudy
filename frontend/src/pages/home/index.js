@@ -1,9 +1,9 @@
+import { Container, Grid } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import React, { useEffect } from 'react';
-import { Container, Grid } from '@mui/material';
-import backgroundIntro from './../../assets/images/background-intro.gif';
 
 import './styles.css';
+import backgroundIntro from './../../assets/images/background-intro.gif';
 
 export default function Home() {
   const navigate = useNavigate();
