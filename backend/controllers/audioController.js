@@ -1,4 +1,4 @@
-const uploadMediaController = require("./uploadMediaController");
+const uploadCloudinaryController = require("./uploadCloudinaryController");
 const mediaController = require("./mediaController");
 const Audio = require("../models/Audio");
 const createOptions = require("../configs/createOptions");
@@ -12,7 +12,7 @@ const audioController = {
 
       if (req.file) {
         if (req.file.mimetype.startsWith("audio/")) {
-          data = await uploadMediaController.uploadAudio(req, res);
+          data = await uploadCloudinaryController.uploadAudio(req, res);
         } else {
           return res.status(400).json({ message: "Invalid file type" });
         }
@@ -49,7 +49,7 @@ const audioController = {
           }));
         })
       );
-      return res.status(200).json({ result: result });
+      return res.status(200).json({ result });
     } catch (error) {
       return res.status(500).json({ error: error.message });
     }
@@ -64,11 +64,11 @@ const audioController = {
       if (!audio) {
         return res.status(404).json({ message: "Audio not found!" });
       }
-      await uploadMediaController.deleteFile(
+      await uploadCloudinaryController.deleteFile(
         audio.media.cloudinary_id,
         "video"
       );
-      await mediaController.deleteMedia(audio.media._id);
+      await mediaController.delete(audio.media._id);
       await Audio.findByIdAndDelete(req.params.id);
       return res.status(200).json({ message: "Audio deleted successfully!" });
     } catch (error) {
