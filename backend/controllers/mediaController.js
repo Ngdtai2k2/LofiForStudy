@@ -1,10 +1,9 @@
 const Media = require("../models/Media");
-const uploadMedia = require("./uploadMediaController");
 
 const mediaController = {
-  createMedia: async (req, res) => {
+  create: async (req, res) => {
     try {
-      const { url, type, description, cloudinary_id } = req;
+      const { url, type, cloudinary_id } = req;
 
       const newMedia = new Media({
         url: url,
@@ -19,7 +18,7 @@ const mediaController = {
     }
   },
 
-  updateMedia: async (req, res, media) => {
+  update: async (req, media) => {
     try {
       const { url, type, cloudinary_id } = req.body.media;
 
@@ -35,7 +34,7 @@ const mediaController = {
     }
   },
 
-  deleteMedia: async (mediaId) => {
+  delete: async (mediaId) => {
     try {
       await Media.findByIdAndDelete(mediaId);
       return true;

@@ -1,14 +1,14 @@
 const cloudinary = require("../configs/cloudinary");
 const mediaController = require("./mediaController");
 
-const uploadMedia = {
-  uploadImage: async (req, res) => {
+const uploadCloudinaryController = {
+  uploadImage: async (req) => {
     try {
       const data = await cloudinary.uploader.upload(req.file.path,{
         resource_type: 'auto'
       });
       const { secure_url, public_id } = data;
-      const newMedia = await mediaController.createMedia({
+      const newMedia = await mediaController.create({
         url: secure_url,
         type: 0,
         cloudinary_id: public_id,
@@ -20,13 +20,13 @@ const uploadMedia = {
     }
   },
 
-  uploadAudio: async (req, res) => {
+  uploadAudio: async (req) => {
     try {
       const data = await cloudinary.uploader.upload(req.file.path, {
         resource_type: 'video'
       });
       const { secure_url, public_id } = data;
-      const newMedia = await mediaController.createMedia({
+      const newMedia = await mediaController.create({
         url: secure_url,
         type: 1,
         cloudinary_id: public_id,
@@ -49,4 +49,4 @@ const uploadMedia = {
   },
 };
 
-module.exports = uploadMedia;
+module.exports = uploadCloudinaryController;

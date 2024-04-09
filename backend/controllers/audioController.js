@@ -4,7 +4,7 @@ const Audio = require("../models/Audio");
 const createOptions = require("../configs/createOptions");
 
 const audioController = {
-  createAudio: async (req, res) => {
+  create: async (req, res) => {
     try {
       const { title, artist, description, embedId } = req.body;
       const isEmbed = embedId ? 1 : 0;
@@ -37,7 +37,7 @@ const audioController = {
     }
   },
 
-  getAllAudio: async (req, res) => {
+  getAll: async (req, res) => {
     try {
       const options = createOptions(req);
       let result = await Audio.paginate({}, options);
@@ -55,7 +55,7 @@ const audioController = {
     }
   },
 
-  deleteAudio: async (req, res) => {
+  delete: async (req, res) => {
     try {
       const audio = await Audio.findById(req.params.id).populate({
         path: "media",
