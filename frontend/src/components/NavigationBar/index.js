@@ -71,7 +71,7 @@ export default function NavigationBar() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
         position="fixed"
-        sx={{ backgroundColor: "#0000005c", color: "#ffffff" }}
+        sx={{ backgroundColor: '#0000005c', color: '#ffffff' }}
       >
         <Toolbar variant="dense">
           <IconButton
