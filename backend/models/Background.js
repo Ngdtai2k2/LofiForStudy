@@ -2,14 +2,6 @@ const mongoose = require("mongoose");
 
 const backgroundSchema = new mongoose.Schema(
   {
-    url: {
-      type: String,
-      required: true,
-    },
-    type: {
-      type: Number,
-      required: true,
-    },
     description: {
       type: String,
     },
