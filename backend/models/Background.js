@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const mongoosePaginate = require("mongoose-paginate-v2");
 
 const backgroundSchema = new mongoose.Schema(
   {
@@ -13,4 +14,7 @@ const backgroundSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+backgroundSchema.plugin(mongoosePaginate);
+
 module.exports = mongoose.model("Background", backgroundSchema);
