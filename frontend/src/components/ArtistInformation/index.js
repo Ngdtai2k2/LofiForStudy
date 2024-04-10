@@ -19,7 +19,11 @@ export default function ArtistInformation({
         underline="none"
         maxWidth={60}
       >
-        <Avatar variant="rounded" src={thumbnailsHigh} alt={`Profile picture of ${channelTitle}`} />
+        <Avatar
+          variant="rounded"
+          src={thumbnailsHigh}
+          alt={`Profile picture of ${channelTitle}`}
+        />
         <Marquee direction="left" speed={10} delay={2}>
           <Typography variant="caption" color="#ffffff">
             {channelTitle}&nbsp;
