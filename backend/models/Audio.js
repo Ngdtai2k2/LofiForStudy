@@ -17,7 +17,7 @@ const AudioSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
-    embedId: {
+    urlYoutube: {
       type: String,
     },
     media: {

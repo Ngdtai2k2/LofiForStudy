@@ -6,8 +6,8 @@ const createOptions = require("../configs/createOptions");
 const audioController = {
   create: async (req, res) => {
     try {
-      const { title, artist, description, embedId } = req.body;
-      const isEmbed = embedId ? 1 : 0;
+      const { title, artist, description, urlYoutube } = req.body;
+      const isEmbed = urlYoutube ? 1 : 0;
       let data;
 
       if (req.file) {
@@ -22,8 +22,8 @@ const audioController = {
         title: title,
         artist: artist || null,
         description: description || null,
-        isEmbed: embedId ? 1 : 0,
-        embedId: isEmbed ? embedId || null : null,
+        isEmbed: urlYoutube ? 1 : 0,
+        urlYoutube: isEmbed ? urlYoutube || null : null,
         media: !isEmbed ? (data ? data._id : null) : null,
       });
 
