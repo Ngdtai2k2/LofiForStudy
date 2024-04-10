@@ -20,8 +20,17 @@ function Clock() {
   const timeOptions = { hour: 'numeric', minute: '2-digit' };
 
   return (
-    <Box display='flex' justifyContent='center' alignItems='center' flexDirection='column' color='white' marginLeft={0.5}>
-      <Typography variant="caption">{time.toLocaleTimeString([], timeOptions)}</Typography>
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      flexDirection="column"
+      color="white"
+      marginLeft={0.5}
+    >
+      <Typography variant="caption">
+        {time.toLocaleTimeString([], timeOptions)}
+      </Typography>
       <Typography variant="caption">{time.toLocaleDateString()}</Typography>
     </Box>
   );
