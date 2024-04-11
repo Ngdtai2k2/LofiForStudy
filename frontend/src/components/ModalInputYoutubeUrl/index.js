@@ -70,7 +70,12 @@ export default function ModalInputYoutubeUrl({
           error={formik.touched.url && Boolean(formik.errors.url)}
           helperText={formik.touched.url && formik.errors.url}
         />
-        <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          sx={{ mt: 3, mb: 2 }}
+        >
           ok
         </Button>
       </Box>
