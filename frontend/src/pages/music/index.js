@@ -42,6 +42,7 @@ import { GetInfoYoutubeByVideoId } from '../../utils/getInfoYoutubeByVideoId';
 import {
   toggleState,
   toggleFullScreen,
+  handleVolumeChange,
   fetchData,
   handleDocumentClick,
   getVideoIdByVideoUrl,
@@ -76,10 +77,6 @@ export default function Music() {
     setIsEmbedYoutube(isEmbed);
     setSongPlay(url);
     setPlaying(true);
-  };
-
-  const handleVolumeChange = (e) => {
-    setVolume(parseFloat(e.target.value));
   };
 
   useEffect(() => {
@@ -164,7 +161,8 @@ export default function Music() {
     const nextSong = audio[nextIndex];
     if (nextSong) {
       handleClickSong(
-        nextSong.urlYoutube ? nextSong.urlYoutube : nextSong.media.url, nextSong.isEmbed
+        nextSong.urlYoutube ? nextSong.urlYoutube : nextSong.media.url,
+        nextSong.isEmbed,
       );
     }
   };
@@ -185,7 +183,8 @@ export default function Music() {
     const prevSong = audio[prevIndex];
     if (prevSong) {
       handleClickSong(
-        prevSong.urlYoutube ? prevSong.urlYoutube : prevSong.media.url, prevSong.isEmbed
+        prevSong.urlYoutube ? prevSong.urlYoutube : prevSong.media.url,
+        prevSong.isEmbed,
       );
     }
   };
@@ -224,10 +223,7 @@ export default function Music() {
           <Grid container item xs={12} md={9} marginX="auto">
             <Grid item xs={6} display={isListSongClicked ? 'flex' : 'none'}>
               <BoxOverlay sx={{ width: '100%' }}>
-                <Box
-                  className='list-song-container'
-                  id="scrollable-list-song"
-                >
+                <Box className="list-song-container" id="scrollable-list-song">
                   <InfiniteScroll
                     dataLength={audio.length}
                     next={() => {
@@ -447,7 +443,7 @@ export default function Music() {
                             max={1}
                             step={0.05}
                             value={volume}
-                            onChange={handleVolumeChange}
+                            onChange={(e) => handleVolumeChange(e, setVolume)}
                             style={{
                               display: isVolumeClicked ? 'block' : 'none',
                             }}
