@@ -10,6 +10,9 @@ const AudioSchema = new mongoose.Schema(
     artist: {
       type: String,
     },
+    profileUrl: {
+      type: String,
+    },
     description: {
       type: String,
     },

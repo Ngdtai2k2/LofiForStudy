@@ -6,7 +6,7 @@ const createOptions = require("../configs/createOptions");
 const audioController = {
   create: async (req, res) => {
     try {
-      const { title, artist, description, urlYoutube } = req.body;
+      const { title, artist, profileUrl, description, urlYoutube } = req.body;
       const isEmbed = urlYoutube ? 1 : 0;
       let data;
 
@@ -21,6 +21,7 @@ const audioController = {
       const newAudio = await Audio.create({
         title: title,
         artist: artist || null,
+        profileUrl: profileUrl || null,
         description: description || null,
         isEmbed: urlYoutube ? 1 : 0,
         urlYoutube: isEmbed ? urlYoutube || null : null,
