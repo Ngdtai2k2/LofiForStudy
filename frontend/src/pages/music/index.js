@@ -77,10 +77,14 @@ export default function Music() {
   const page = useRef(1);
   const playerRef = useRef(null);
 
-  const handleClickSong = (url, isEmbed) => {
+  const handleClickSong = (url, isEmbed, item) => {
     setIsEmbedYoutube(isEmbed);
     setSongPlay(url);
     setPlaying(true);
+    if (item) {
+      setInfoYoutube(null);
+      setInfoSong(item);
+    }
   };
 
   useEffect(() => {
