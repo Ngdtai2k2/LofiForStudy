@@ -7,11 +7,17 @@ const themes = extendTheme({
         primary: {
           main: '#121212',
         },
+        light: {
+          main: '#f4f4f4',
+        },
       },
     },
     dark: {
       palette: {
         primary: {
+          main: '#f4f4f4',
+        },
+        light: {
           main: '#f4f4f4',
         },
       },

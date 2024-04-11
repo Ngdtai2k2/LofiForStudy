@@ -45,13 +45,15 @@ export default function ModalInputYoutubeUrl({
         onSubmit={formik.handleSubmit}
         className="modal-container"
         sx={{
-          xs: '100%',
-          md: '50%',
+          width: {
+            xs: '100%',
+            md: '50%',
+          },
         }}
       >
         <TextField
-          size="small"
           margin="normal"
+          size="medium"
           variant="standard"
           label="Youtube url"
           fullWidth
@@ -59,9 +61,13 @@ export default function ModalInputYoutubeUrl({
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                <YouTubeIcon />
+                <YouTubeIcon color="light" />
               </InputAdornment>
             ),
+            style: { color: 'white' },
+          }}
+          InputLabelProps={{
+            style: { color: 'white' },
           }}
           id="url"
           value={formik.values.url}
@@ -69,14 +75,16 @@ export default function ModalInputYoutubeUrl({
           onBlur={formik.handleBlur}
           error={formik.touched.url && Boolean(formik.errors.url)}
           helperText={formik.touched.url && formik.errors.url}
+          FormHelperTextProps={{ style: { color: 'red' } }}
         />
         <Button
           type="submit"
           fullWidth
           variant="contained"
-          sx={{ mt: 3, mb: 2 }}
+          color="light"
+          sx={{ mt: 3, mb: 2, color: '#141414' }}
         >
-          ok
+          Ok
         </Button>
       </Box>
     </Modal>
