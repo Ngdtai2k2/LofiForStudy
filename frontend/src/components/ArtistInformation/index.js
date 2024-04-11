@@ -20,7 +20,7 @@ export default function ArtistInformation({
         maxWidth={60}
       >
         <Avatar
-          variant="rounded"
+          sx={{width: '45px', height: '45px'}}
           src={thumbnailsHigh}
           alt={`Profile picture of ${channelTitle}`}
         />
