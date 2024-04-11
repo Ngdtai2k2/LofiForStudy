@@ -36,6 +36,27 @@ body {
   align-items: center;
 }
 
+.list-song-container { 
+  display: flex;
+  color: #fff;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.list-song-container::-webkit-scrollbar {
+  width: 5px;
+}
+
+.list-song-container::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+}
+
+.list-song-container::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
 .slider {
   /* slider */
   --slider-width: 75px;

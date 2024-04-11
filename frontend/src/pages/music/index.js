@@ -164,7 +164,7 @@ export default function Music() {
     const nextSong = audio[nextIndex];
     if (nextSong) {
       handleClickSong(
-        nextSong.urlYoutube ? nextSong.urlYoutube : nextSong.media.url,
+        nextSong.urlYoutube ? nextSong.urlYoutube : nextSong.media.url, nextSong.isEmbed
       );
     }
   };
@@ -173,8 +173,11 @@ export default function Music() {
     const currentIndex = audio.findIndex(
       (item) => (item?.urlYoutube || item.media.url) === songPlay,
     );
+
     let prevIndex;
-    if (currentIndex === 0) {
+    if (currentIndex === -1) {
+      prevIndex = 0;
+    } else if (currentIndex === 0) {
       prevIndex = audio.length - 1;
     } else {
       prevIndex = currentIndex - 1;
@@ -182,7 +185,7 @@ export default function Music() {
     const prevSong = audio[prevIndex];
     if (prevSong) {
       handleClickSong(
-        prevSong.urlYoutube ? prevSong.urlYoutube : prevSong.media.url,
+        prevSong.urlYoutube ? prevSong.urlYoutube : prevSong.media.url, prevSong.isEmbed
       );
     }
   };
@@ -215,21 +218,14 @@ export default function Music() {
           muted={muted}
           volume={volume}
           loop={loop}
+          onEnded={handleNextSong}
         />
         <Grid container marginX="auto" marginBottom={1}>
           <Grid container item xs={12} md={9} marginX="auto">
             <Grid item xs={6} display={isListSongClicked ? 'flex' : 'none'}>
               <BoxOverlay sx={{ width: '100%' }}>
                 <Box
-                  color="white"
-                  display="flex"
-                  sx={{
-                    width: '100%',
-                    maxHeight: 200,
-                    overflowY: 'auto',
-                    scrollbarWidth: 'thin',
-                    scrollbarColor: 'rgba(0, 0, 0, 0.5) rgba(0, 0, 0, 0.1)',
-                  }}
+                  className='list-song-container'
                   id="scrollable-list-song"
                 >
                   <InfiniteScroll
