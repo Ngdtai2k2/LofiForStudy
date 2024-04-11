@@ -11,6 +11,11 @@ body {
   color: #ffffff;
 }
 
+.list-item-style {
+  cursor: pointer;
+  border-bottom: 1px solid #ffffff4f;
+}
+
 .background-image {
   position: relative;
   min-height: 100vh;

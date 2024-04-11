@@ -46,7 +46,7 @@ export const handleNextSong = (audio, songPlay, handleClickSong) => {
   if (nextSong) {
     const url = nextSong.urlYoutube ? nextSong.urlYoutube : nextSong.media.url;
     const isEmbed = nextSong.isEmbed;
-    handleClickSong(url, isEmbed, nextSong);
+    handleClickSong(url, isEmbed, nextSong, nextSong._id);
   }
 };
 
@@ -64,7 +64,7 @@ export const handlePrevSong = (audio, songPlay, handleClickSong) => {
   if (prevSong) {
     const url = prevSong.urlYoutube ? prevSong.urlYoutube : prevSong.media.url;
     const isEmbed = prevSong.isEmbed;
-    handleClickSong(url, isEmbed, prevSong);
+    handleClickSong(url, isEmbed, prevSong, prevSong._id);
   }
 };
 

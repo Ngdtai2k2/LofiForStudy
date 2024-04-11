@@ -27,6 +27,7 @@ import YouTubeIcon from '@mui/icons-material/YouTube';
 import EventNoteIcon from '@mui/icons-material/EventNote';
 import WallpaperIcon from '@mui/icons-material/Wallpaper';
 import RedeemIcon from '@mui/icons-material/Redeem';
+import ArrowRightRoundedIcon from '@mui/icons-material/ArrowRightRounded';
 
 import LoadingEffect from '../../components/LoadingEffect';
 import NavigationBar from '../../components/NavigationBar';
@@ -64,23 +65,25 @@ export default function Music() {
   const [volume, setVolume] = useState(0.5);
   const [loop, setLoop] = useState(false);
   const [songPlay, setSongPlay] = useState(DEFAULT_MUSIC);
+  const [currentSong, setCurrentSong] = useState(0);
   const [isEmbedYoutube, setIsEmbedYoutube] = useState(true);
   const [infoYoutube, setInfoYoutube] = useState(null);
   const [infoSong, setInfoSong] = useState(null);
-  const [isFullScreen, setIsFullScreen] = useState(false);
   const [hasMore, setHasMore] = useState(true);
+  const [isFullScreen, setIsFullScreen] = useState(false);
   const [isVolumeClicked, setIsVolumeClicked] = useState(false);
   const [isListSongClicked, setIsListSongClicked] = useState(false);
-
   const navigate = useNavigate();
 
   const page = useRef(1);
   const playerRef = useRef(null);
 
-  const handleClickSong = (url, isEmbed, item) => {
+  const handleClickSong = (url, isEmbed, item, id) => {
     setIsEmbedYoutube(isEmbed);
     setSongPlay(url);
     setPlaying(true);
+    setInfoSong(null);
+    setCurrentSong(id);
     if (item) {
       setInfoYoutube(null);
       setInfoSong(item);
@@ -187,8 +190,8 @@ export default function Music() {
           onEnded={() => handleNextSong(audio, songPlay, handleClickSong)}
         />
         <Grid container marginX="auto" marginBottom={1}>
-          <Grid container item xs={12} md={9} marginX="auto">
-            <Grid item xs={6} display={isListSongClicked ? 'flex' : 'none'}>
+          <Grid container item xs={12} md={8} marginX="auto">
+            <Grid item xs={12} md={4} display={isListSongClicked ? 'flex' : 'none'}>
               <BoxOverlay sx={{ width: '100%' }}>
                 <Box className="list-song-container" id="scrollable-list-song">
                   <InfiniteScroll
@@ -211,20 +214,29 @@ export default function Music() {
                         <i>Yay! You have seen it all</i>
                       </p>
                     }
-                    style={{ width: '100%' }}
                     scrollableTarget="scrollable-list-song"
                   >
-                    <List>
+                    <List sx={{width: '100%'}}>
+                      <ListItem
+                        className="list-item-style"
+                        onClick={() => {
+                          handleClickSong(DEFAULT_MUSIC, true, false, 0);
+                        }}
+                      >
+                        <Typography variant="body2" color="white" className='flex-row-center'>
+                         {currentSong === 0 ? <ArrowRightRoundedIcon/> : ''} 0. Live Lofi Girl 
+                        </Typography>
+                      </ListItem>
                       {audio.map((item, index) => (
                         <ListItem
-                          sx={{ cursor: 'pointer' }}
+                          className="list-item-style"
                           key={index}
                           onClick={() => {
                             const url = item.isEmbed
                               ? item?.urlYoutube
                               : item?.media?.url;
                             const isEmbed = item.isEmbed;
-                            handleClickSong(url, isEmbed);
+                            handleClickSong(url, isEmbed, false, item._id);
                             if (item.isEmbed) {
                               setInfoSong(null);
                             } else {
@@ -233,8 +245,8 @@ export default function Music() {
                             }
                           }}
                         >
-                          <Typography variant="body2" color="white">
-                            {index + 1}. {item.title}
+                          <Typography variant="body2" color="white" className='flex-row-center'>
+                           {currentSong === item._id ? <ArrowRightRoundedIcon/> : ''} {index + 1}. {item.title} 
                           </Typography>
                         </ListItem>
                       ))}
@@ -338,7 +350,7 @@ export default function Music() {
               </BoxOverlay>
             </Grid>
           </Grid>
-          <Grid container item xs={12} md={9} marginX="auto">
+          <Grid container item xs={12} md={8} marginX="auto">
             <Grid item xs={2}>
               <ArtistInformation
                 url={
