@@ -80,9 +80,13 @@ export const changePassword = async (
 ) => {
   dispatch(changePasswordStart());
   try {
-    const res = await axiosJWT.put(BASE_API_URL + '/auth/password/' + id, userData, {
-      headers: { token: `Bearer ${accessToken}` },
-    });
+    const res = await axiosJWT.put(
+      BASE_API_URL + '/auth/password/' + id,
+      userData,
+      {
+        headers: { token: `Bearer ${accessToken}` },
+      },
+    );
     dispatch(changePasswordSuccess());
     toast.success(res.data.message, toastTheme);
   } catch (err) {
