@@ -6,6 +6,15 @@ body {
   height: 100%;
 }
 
+.hidden-react-player {
+  width: 0%;
+  height: 0%;
+  position: absolute;
+  top: 100000px;
+  left: 100000px;
+  overflow: hidden;
+}
+
 .icon-style {
   font-size: 25px;
   color: #ffffff;

@@ -43,6 +43,8 @@ import {
   toggleState,
   toggleFullScreen,
   handleVolumeChange,
+  handleNextSong,
+  handlePrevSong,
   fetchData,
   handleDocumentClick,
   getVideoIdByVideoUrl,
@@ -148,46 +150,6 @@ export default function Music() {
     getBackground();
   }, []);
 
-  const handleNextSong = () => {
-    const currentIndex = audio.findIndex(
-      (item) => (item.urlYoutube || item.media.url) === songPlay,
-    );
-    let nextIndex;
-    if (currentIndex === audio.length - 1) {
-      nextIndex = 0;
-    } else {
-      nextIndex = currentIndex + 1;
-    }
-    const nextSong = audio[nextIndex];
-    if (nextSong) {
-      handleClickSong(
-        nextSong.urlYoutube ? nextSong.urlYoutube : nextSong.media.url,
-        nextSong.isEmbed,
-      );
-    }
-  };
-
-  const handlePrevSong = () => {
-    const currentIndex = audio.findIndex(
-      (item) => (item?.urlYoutube || item.media.url) === songPlay,
-    );
-
-    let prevIndex;
-    if (currentIndex === -1) {
-      prevIndex = 0;
-    } else if (currentIndex === 0) {
-      prevIndex = audio.length - 1;
-    } else {
-      prevIndex = currentIndex - 1;
-    }
-    const prevSong = audio[prevIndex];
-    if (prevSong) {
-      handleClickSong(
-        prevSong.urlYoutube ? prevSong.urlYoutube : prevSong.media.url,
-        prevSong.isEmbed,
-      );
-    }
-  };
 
   return (
     <>
@@ -207,17 +169,12 @@ export default function Music() {
         <ReactPlayer
           ref={playerRef}
           url={songPlay}
-          width="0%"
-          height="0%"
-          position="absolute"
-          top="10000px"
-          left="1000px"
-          overflow="hidden"
+          className="hidden-react-player"
           playing={playing}
           muted={muted}
           volume={volume}
           loop={loop}
-          onEnded={handleNextSong}
+          onEnded={()=>handleNextSong(audio, songPlay, handleClickSong)}
         />
         <Grid container marginX="auto" marginBottom={1}>
           <Grid container item xs={12} md={9} marginX="auto">
@@ -253,11 +210,14 @@ export default function Music() {
                           sx={{ cursor: 'pointer' }}
                           key={index}
                           onClick={() => {
+                            const url = item.isEmbed
+                              ? item?.urlYoutube
+                              : item?.media?.url;
+                            const isEmbed = item.isEmbed;
+                            handleClickSong(url, isEmbed);
                             if (item.isEmbed) {
-                              handleClickSong(item?.urlYoutube, true);
                               setInfoSong(null);
                             } else {
-                              handleClickSong(item?.media?.url, false);
                               setInfoSong(item);
                               setInfoYoutube(null);
                             }
@@ -370,17 +330,13 @@ export default function Music() {
                     ? `${YOUTUBE_URL}channel/${infoYoutube?.channelId}`
                     : infoSong?.profileUrl
                 }
-                channelTitle={
-                  infoYoutube?.channelTitle
-                    ? infoYoutube?.channelTitle
-                    : infoSong?.artist
-                }
+                channelTitle={infoYoutube?.channelTitle || infoSong?.artist}
                 thumbnailsHigh={infoYoutube?.thumbnails?.high}
               />
             </Grid>
             <Grid item xs={10}>
               <BoxOverlay sx={{ height: '100%' }}>
-                <Box>
+                <Box width="80%">
                   <Marquee direction="left">
                     <Typography variant="body1" color="white">
                       {infoSong
@@ -402,7 +358,7 @@ export default function Music() {
                     }
                   />
                   <IconButtonWithTooltip
-                    onClick={() => handlePrevSong()}
+                    onClick={()=>handlePrevSong(audio, songPlay, handleClickSong)}
                     title="Previous song"
                     icon={<ArrowBackIosNewRoundedIcon className="icon-style" />}
                   />
@@ -424,7 +380,7 @@ export default function Music() {
                     }
                   />
                   <IconButtonWithTooltip
-                    onClick={() => handleNextSong()}
+                    onClick={()=>handleNextSong(audio, songPlay, handleClickSong)}
                     title="Next song"
                     icon={<ArrowForwardIosRoundedIcon className="icon-style" />}
                   />
