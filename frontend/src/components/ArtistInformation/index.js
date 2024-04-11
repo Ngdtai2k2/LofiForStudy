@@ -16,11 +16,11 @@ export default function ArtistInformation({
       <Link
         className="flex-column-center"
         href={`${YOUTUBE_URL}channel/${channelId}`}
-        underline="none" 
-        width='100%'
+        underline="none"
+        width="100%"
       >
         <Avatar
-          sx={{width: '45px', height: '45px'}}
+          sx={{ width: '45px', height: '45px' }}
           src={thumbnailsHigh}
           alt={`Profile picture of ${channelTitle}`}
         />
