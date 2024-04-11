@@ -18,6 +18,7 @@ export default function ArtistInformation({
         href={url}
         underline="none"
         width="100%"
+        target="_blank"
       >
         <Avatar
           sx={{ width: '45px', height: '45px' }}
