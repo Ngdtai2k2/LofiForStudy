@@ -3,6 +3,7 @@ import Marquee from 'react-fast-marquee';
 import Link from '@mui/material/Link';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 
 import BoxOverlay from '../BoxOverlay';
 import { YOUTUBE_URL } from '../../constants/constant';
@@ -16,8 +17,8 @@ export default function ArtistInformation({
       <Link
         className="flex-column-center"
         href={`${YOUTUBE_URL}channel/${channelId}`}
-        underline="none"
-        maxWidth={60}
+        underline="none" 
+        width='100%'
       >
         <Avatar
           sx={{width: '45px', height: '45px'}}
