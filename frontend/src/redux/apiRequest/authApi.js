@@ -16,12 +16,12 @@ import {
 } from '../slice/userSlice';
 
 import { toast } from 'react-toastify';
-import { toastTheme, BaseApi } from '../../constants/constant';
+import { toastTheme, BASE_API_URL } from '../../constants/constant';
 
 export const loginUser = async (user, dispatch, navigate) => {
   dispatch(loginStart());
   try {
-    const res = await axios.post(BaseApi + '/auth/login', user);
+    const res = await axios.post(BASE_API_URL + '/auth/login', user);
     dispatch(loginSuccess(res.data));
     toast.success(res.data.message, toastTheme);
     navigate('/music');
@@ -35,7 +35,7 @@ export const loginUser = async (user, dispatch, navigate) => {
 export const registerUser = async (user, dispatch, setTabIndex) => {
   dispatch(registerStart());
   try {
-    await axios.post(BaseApi + '/auth/register', user);
+    await axios.post(BASE_API_URL + '/auth/register', user);
     dispatch(registerSuccess());
     toast.success('Successful account registration!', toastTheme);
     setTabIndex(0);
@@ -55,7 +55,7 @@ export const logOut = async (
   dispatch(logOutStart());
   try {
     await axiosJWT.post(
-      BaseApi + '/auth/logout',
+      BASE_API_URL + '/auth/logout',
       { id, device },
       {
         headers: { token: `Bearer ${accessToken}` },
@@ -80,7 +80,7 @@ export const changePassword = async (
 ) => {
   dispatch(changePasswordStart());
   try {
-    const res = await axiosJWT.put(BaseApi + '/auth/password/' + id, userData, {
+    const res = await axiosJWT.put(BASE_API_URL + '/auth/password/' + id, userData, {
       headers: { token: `Bearer ${accessToken}` },
     });
     dispatch(changePasswordSuccess());

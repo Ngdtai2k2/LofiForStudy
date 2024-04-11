@@ -6,10 +6,12 @@ export const toastTheme = {
   transition: Flip,
 };
 
-export const BaseApi = process.env.REACT_APP_BASE_URL;
+export const BASE_API_URL = process.env.REACT_APP_BASE_URL;
 
 export const YOUTUBE_URL = process.env.REACT_APP_YOUTUBE_URL;
 
 export const YOUTUBE_API_KEY = process.env.REACT_APP_YOUTUBE_API_KEY;
 
 export const YOUTUBE_API_URL = process.env.REACT_APP_YOUTUBE_API_URL;
+
+export const DEFAULT_MUSIC = 'https://www.youtube.com/watch?v=jfKfPfyJRdk';
