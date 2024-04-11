@@ -33,7 +33,11 @@ import NavigationBar from '../../components/NavigationBar';
 import IconButtonWithTooltip from '../../components/IconButtonWithTooltip';
 import BoxOverlay from '../../components/BoxOverlay';
 import Clock from '../../components/Clock';
-import { BASE_API_URL, DEFAULT_MUSIC } from '../../constants/constant';
+import {
+  BASE_API_URL,
+  DEFAULT_MUSIC,
+  YOUTUBE_URL,
+} from '../../constants/constant';
 import { GetInfoYoutubeByVideoId } from '../../utils/getInfoYoutubeByVideoId';
 import {
   toggleState,
@@ -57,6 +61,7 @@ export default function Music() {
   const [songPlay, setSongPlay] = useState(DEFAULT_MUSIC);
   const [isEmbedYoutube, setIsEmbedYoutube] = useState(true);
   const [infoYoutube, setInfoYoutube] = useState(null);
+  const [infoSong, setInfoSong] = useState(null);
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const [isVolumeClicked, setIsVolumeClicked] = useState(false);
@@ -108,7 +113,7 @@ export default function Music() {
   useEffect(() => {
     const getInfoYoutube = async () => {
       try {
-        if(isEmbedYoutube) {
+        if (isEmbedYoutube) {
           const videoId = getVideoIdByVideoUrl(songPlay);
           const info = await GetInfoYoutubeByVideoId(videoId);
           setInfoYoutube(info);
@@ -119,14 +124,14 @@ export default function Music() {
     };
 
     getInfoYoutube();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [isEmbedYoutube, songPlay]);
 
   useEffect(() => {
     document.title = 'Listen to lofi for study!!!';
     fetchData(`${BASE_API_URL}/audio`, setAudio, audio, setHasMore, page);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   useEffect(() => {
     const getBackground = async () => {
       try {
@@ -258,8 +263,11 @@ export default function Music() {
                           onClick={() => {
                             if (item.isEmbed) {
                               handleClickSong(item?.urlYoutube, true);
+                              setInfoSong(null);
                             } else {
                               handleClickSong(item?.media?.url, false);
+                              setInfoSong(item);
+                              setInfoYoutube(null);
                             }
                           }}
                         >
@@ -365,8 +373,16 @@ export default function Music() {
           <Grid container item xs={12} md={9} marginX="auto">
             <Grid item xs={2}>
               <ArtistInformation
-                channelId={infoYoutube?.channelId}
-                channelTitle={infoYoutube?.channelTitle}
+                url={
+                  infoYoutube?.channelId
+                    ? `${YOUTUBE_URL}channel/${infoYoutube?.channelId}`
+                    : infoSong?.profileUrl
+                }
+                channelTitle={
+                  infoYoutube?.channelTitle
+                    ? infoYoutube?.channelTitle
+                    : infoSong?.artist
+                }
                 thumbnailsHigh={infoYoutube?.thumbnails?.high}
               />
             </Grid>
@@ -375,7 +391,9 @@ export default function Music() {
                 <Box>
                   <Marquee direction="left">
                     <Typography variant="body1" color="white">
-                      tên bài hát và tên tác giả&nbsp;
+                      {infoSong
+                        ? `${infoSong?.title} - ${infoSong?.artist}`
+                        : `${infoYoutube?.titleVideo}`}
                     </Typography>
                   </Marquee>
                 </Box>
