@@ -5,9 +5,9 @@ import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 
 import BoxOverlay from '../BoxOverlay';
-import { YOUTUBE_URL } from '../../constants/constant';
+
 export default function ArtistInformation({
-  channelId,
+  url,
   channelTitle,
   thumbnailsHigh,
 }) {
@@ -15,7 +15,7 @@ export default function ArtistInformation({
     <BoxOverlay sx={{ height: '100%' }}>
       <Link
         className="flex-column-center"
-        href={`${YOUTUBE_URL}channel/${channelId}`}
+        href={url}
         underline="none"
         width="100%"
       >
