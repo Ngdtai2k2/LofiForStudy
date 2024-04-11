@@ -150,7 +150,6 @@ export default function Music() {
     getBackground();
   }, []);
 
-
   return (
     <>
       <NavigationBar />
@@ -174,7 +173,7 @@ export default function Music() {
           muted={muted}
           volume={volume}
           loop={loop}
-          onEnded={()=>handleNextSong(audio, songPlay, handleClickSong)}
+          onEnded={() => handleNextSong(audio, songPlay, handleClickSong)}
         />
         <Grid container marginX="auto" marginBottom={1}>
           <Grid container item xs={12} md={9} marginX="auto">
@@ -358,7 +357,9 @@ export default function Music() {
                     }
                   />
                   <IconButtonWithTooltip
-                    onClick={()=>handlePrevSong(audio, songPlay, handleClickSong)}
+                    onClick={() =>
+                      handlePrevSong(audio, songPlay, handleClickSong)
+                    }
                     title="Previous song"
                     icon={<ArrowBackIosNewRoundedIcon className="icon-style" />}
                   />
@@ -380,7 +381,9 @@ export default function Music() {
                     }
                   />
                   <IconButtonWithTooltip
-                    onClick={()=>handleNextSong(audio, songPlay, handleClickSong)}
+                    onClick={() =>
+                      handleNextSong(audio, songPlay, handleClickSong)
+                    }
                     title="Next song"
                     icon={<ArrowForwardIosRoundedIcon className="icon-style" />}
                   />

@@ -39,7 +39,7 @@ export const getVideoIdByVideoUrl = (url) => {
 // functions support for control react play
 export const handleNextSong = (audio, songPlay, handleClickSong) => {
   const currentIndex = audio.findIndex(
-    (item) => (item.urlYoutube || item.media.url) === songPlay
+    (item) => (item.urlYoutube || item.media.url) === songPlay,
   );
   const nextIndex = currentIndex === audio.length - 1 ? 0 : currentIndex + 1;
   const nextSong = audio[nextIndex];
@@ -52,9 +52,14 @@ export const handleNextSong = (audio, songPlay, handleClickSong) => {
 
 export const handlePrevSong = (audio, songPlay, handleClickSong) => {
   const currentIndex = audio.findIndex(
-    (item) => (item?.urlYoutube || item.media.url) === songPlay
+    (item) => (item?.urlYoutube || item.media.url) === songPlay,
   );
-  const prevIndex = currentIndex === -1 ? 0 : (currentIndex === 0 ? audio.length - 1 : currentIndex - 1);
+  const prevIndex =
+    currentIndex === -1
+      ? 0
+      : currentIndex === 0
+        ? audio.length - 1
+        : currentIndex - 1;
   const prevSong = audio[prevIndex];
   if (prevSong) {
     const url = prevSong.urlYoutube ? prevSong.urlYoutube : prevSong.media.url;
