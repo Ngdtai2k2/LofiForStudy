@@ -52,8 +52,10 @@ import {
 
 import './styles.css';
 import ArtistInformation from '../../components/ArtistInformation';
+import ModalInputYoutubeUrl from '../../components/ModalInputYoutubeUrl';
 
 export default function Music() {
+  const [openModalInputYoutube, setOpenModalInputYoutube] = useState(false);
   const [background, setBackground] = useState(null);
   const [loadingBackground, setLoadingBackground] = useState(true);
   const [audio, setAudio] = useState([]);
@@ -168,7 +170,12 @@ export default function Music() {
         <ReactPlayer
           ref={playerRef}
           url={songPlay}
-          className="hidden-react-player"
+          width="0%"
+          height="0%"
+          position="absolute"
+          top="10000px"
+          left="1000px"
+          overflow="hidden"
           playing={playing}
           muted={muted}
           volume={volume}
@@ -307,6 +314,12 @@ export default function Music() {
                   <IconButtonWithTooltip
                     title="Youtube"
                     icon={<YouTubeIcon size="small" className="icon-style" />}
+                    onClick={() => setOpenModalInputYoutube(true)}
+                  />
+                  <ModalInputYoutubeUrl
+                    openModal={openModalInputYoutube}
+                    handleClose={() => setOpenModalInputYoutube(false)}
+                    stateSetter={setSongPlay}
                   />
                   <IconButtonWithTooltip
                     title="Change background"
