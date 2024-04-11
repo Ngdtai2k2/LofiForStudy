@@ -7,13 +7,15 @@ export const GetInfoYoutubeByVideoId = async (videoId) => {
       `${YOUTUBE_API_URL}videos?part=snippet&id=${videoId}&key=${YOUTUBE_API_KEY}`,
     );
 
-    const data = res.data;
+    const data = res?.data;
     const channelId = data?.items[0]?.snippet.channelId;
     const channelTitle = data?.items[0]?.snippet.channelTitle;
+    const title = data?.items[0]?.snippet.title;
 
     if (channelId) {
       const thumbnails = await GetInfoChannelByChannelId(channelId);
       return {
+        titleVideo: title,
         channelTitle: channelTitle,
         channelId: channelId,
         thumbnails: thumbnails,
