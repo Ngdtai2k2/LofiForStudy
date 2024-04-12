@@ -31,9 +31,10 @@ export default function ModalInputYoutubeUrl({
       url: '',
     },
     validationSchema: validationSchema,
-    onSubmit: async (values) => {
+    onSubmit: async (values, { resetForm }) => {
       stateSetter(values.url);
       handleClose();
+      resetForm();
     },
   });
 
