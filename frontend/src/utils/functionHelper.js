@@ -22,8 +22,18 @@ export const handleVolumeChange = (e, stateSetter) => {
   stateSetter(parseFloat(e.target.value));
 };
 
-export const handleDocumentClick = (state, setState, className, e) => {
-  if (state && !e.target.closest(className)) {
+export const handleDocumentClick = (
+  state,
+  setState,
+  className,
+  excludedClassName,
+  e,
+) => {
+  if (
+    state &&
+    !e.target.closest(className) &&
+    !e.target.closest(excludedClassName)
+  ) {
     setState(false);
   }
 };
@@ -69,20 +79,46 @@ export const handlePrevSong = (audio, songPlay, handleClickSong) => {
 };
 
 // functions support for infinite scroll
-export const fetchData = (apiLink, setItems, items, setHasMore, page) => {
-  axios.get(`${apiLink}?_page=${page.current}&_limit=5`).then((res) => {
-    if (res.data.result.docs.length === 0) {
-      setItems([...items]);
-      setHasMore(false);
-    } else {
-      setItems([...items, ...res.data.result.docs]);
-      setHasMore(res.data.result.docs.length === 5);
-      page.current = page.current + 1;
-    }
-  });
+export const fetchData = (
+  apiLink,
+  setItems,
+  items,
+  setHasMore,
+  page,
+  accessToken,
+  axiosJWT,
+) => {
+  const axiosToUse = axiosJWT || axios;
+  axiosToUse
+    .get(
+      `${apiLink}?_page=${page.current}&_limit=5`,
+      accessToken
+        ? {
+            headers: { token: `Bearer ${accessToken}` },
+            'Content-Type': 'multipart/form-data',
+          }
+        : {},
+    )
+    .then((res) => {
+      if (res.data.result.docs.length === 0) {
+        setItems([...items]);
+        setHasMore(false);
+      } else {
+        setItems([...items, ...res.data.result.docs]);
+        setHasMore(res.data.result.docs.length === 5);
+        page.current = page.current + 1;
+      }
+    });
 };
 
-export const refresh = (apiLink, setItems, setHasMore, page) => {
+export const refresh = (
+  apiLink,
+  setItems,
+  setHasMore,
+  page,
+  accessToken,
+  axiosJWT,
+) => {
   page.current = 1;
-  fetchData(apiLink, setItems, [], setHasMore, page);
+  fetchData(apiLink, setItems, [], setHasMore, page, accessToken, axiosJWT);
 };

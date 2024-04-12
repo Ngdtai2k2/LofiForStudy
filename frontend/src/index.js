@@ -26,7 +26,7 @@ root.render(
         <ToastContainer />
       </CssVarsProvider>
     </PersistGate>
-  </Provider>
+  </Provider>,
   // </React.StrictMode>
 );
 

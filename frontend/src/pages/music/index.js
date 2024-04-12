@@ -54,6 +54,7 @@ import {
 import './styles.css';
 import ArtistInformation from '../../components/ArtistInformation';
 import ModalInputYoutubeUrl from '../../components/ModalInputYoutubeUrl';
+import TodoList from '../../components/TodoList';
 
 export default function Music() {
   const [openModalInputYoutube, setOpenModalInputYoutube] = useState(false);
@@ -73,6 +74,8 @@ export default function Music() {
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [isVolumeClicked, setIsVolumeClicked] = useState(false);
   const [isListSongClicked, setIsListSongClicked] = useState(false);
+  const [isTodoListClicked, setTodoListClicked] = useState(false);
+
   const navigate = useNavigate();
 
   const page = useRef(1);
@@ -96,6 +99,7 @@ export default function Music() {
         isVolumeClicked,
         setIsVolumeClicked,
         '.volume-control',
+        '.slider',
         e,
       );
     document.addEventListener('click', handleVolumeClick);
@@ -110,6 +114,7 @@ export default function Music() {
         isListSongClicked,
         setIsListSongClicked,
         '.list-song',
+        '.list-song-grid',
         e,
       );
     document.addEventListener('click', handleListSongClick);
@@ -117,6 +122,21 @@ export default function Music() {
       document.removeEventListener('click', handleListSongClick);
     };
   }, [isListSongClicked]);
+
+  useEffect(() => {
+    const handleTodoListClick = (e) =>
+      handleDocumentClick(
+        isTodoListClicked,
+        setTodoListClicked,
+        '.todo-list',
+        '.todo-list-grid',
+        e,
+      );
+    document.addEventListener('click', handleTodoListClick);
+    return () => {
+      document.removeEventListener('click', handleTodoListClick);
+    };
+  }, [isTodoListClicked]);
 
   useEffect(() => {
     const getInfoYoutube = async () => {
@@ -175,14 +195,11 @@ export default function Music() {
       </div>
       <div className="content-container">
         <ReactPlayer
-          ref={playerRef}
-          url={songPlay}
+          className="react-player"
           width="0%"
           height="0%"
-          position="absolute"
-          top="10000px"
-          left="1000px"
-          overflow="hidden"
+          ref={playerRef}
+          url={songPlay}
           playing={playing}
           muted={muted}
           volume={volume}
@@ -191,7 +208,24 @@ export default function Music() {
         />
         <Grid container marginX="auto" marginBottom={1}>
           <Grid container item xs={12} md={8} marginX="auto">
-            <Grid item xs={12} md={4} display={isListSongClicked ? 'flex' : 'none'}>
+            <Grid
+              item
+              xs={12}
+              md={6}
+              className="todo-list-grid"
+              display={isTodoListClicked ? 'flex' : 'none'}
+            >
+              <BoxOverlay sx={{ width: '100%' }}>
+                <TodoList setState={setTodoListClicked} />
+              </BoxOverlay>
+            </Grid>
+            <Grid
+              item
+              xs={12}
+              md={6}
+              className="list-song-grid"
+              display={isListSongClicked ? 'flex' : 'none'}
+            >
               <BoxOverlay sx={{ width: '100%' }}>
                 <Box className="list-song-container" id="scrollable-list-song">
                   <InfiniteScroll
@@ -216,21 +250,27 @@ export default function Music() {
                     }
                     scrollableTarget="scrollable-list-song"
                   >
-                    <List sx={{width: '100%'}}>
+                    <List sx={{ width: '100%' }}>
                       <ListItem
+                        key={0}
                         className="list-item-style"
                         onClick={() => {
                           handleClickSong(DEFAULT_MUSIC, true, false, 0);
                         }}
                       >
-                        <Typography variant="body2" color="white" className='flex-row-center'>
-                         {currentSong === 0 ? <ArrowRightRoundedIcon/> : ''} 0. Live Lofi Girl 
+                        <Typography
+                          variant="body2"
+                          color="white"
+                          className="flex-row-center"
+                        >
+                          {currentSong === 0 ? <ArrowRightRoundedIcon /> : ''}{' '}
+                          0. Live Lofi Girl
                         </Typography>
                       </ListItem>
                       {audio.map((item, index) => (
                         <ListItem
                           className="list-item-style"
-                          key={index}
+                          key={item._id}
                           onClick={() => {
                             const url = item.isEmbed
                               ? item?.urlYoutube
@@ -245,8 +285,17 @@ export default function Music() {
                             }
                           }}
                         >
-                          <Typography variant="body2" color="white" className='flex-row-center'>
-                           {currentSong === item._id ? <ArrowRightRoundedIcon/> : ''} {index + 1}. {item.title} 
+                          <Typography
+                            variant="body2"
+                            color="white"
+                            className="flex-row-center"
+                          >
+                            {currentSong === item._id ? (
+                              <ArrowRightRoundedIcon />
+                            ) : (
+                              ''
+                            )}
+                            {index + 1}. {item.title}
                           </Typography>
                         </ListItem>
                       ))}
@@ -342,7 +391,9 @@ export default function Music() {
                     icon={<WallpaperIcon size="small" className="icon-style" />}
                   />
                   <IconButtonWithTooltip
+                    className="todo-list"
                     title="Todo List"
+                    onClick={() => toggleState(setTodoListClicked)}
                     icon={<EventNoteIcon size="small" className="icon-style" />}
                   />
                   <Clock />

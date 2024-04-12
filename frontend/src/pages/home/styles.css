@@ -22,8 +22,8 @@ body {
 }
 
 .tracking-in-expand-fwd {
-  animation: tracking-in-expand-fwd 0.8s cubic-bezier(0.215, 0.61, 0.355, 1) 2s
-    both;
+  animation: tracking-in-expand-fwd 0.8s cubic-bezier(0.215, 0.61, 0.355, 1)
+    1.5s both;
   z-index: 2;
   position: relative;
   width: 100%;
@@ -74,9 +74,9 @@ body {
 }
 
 .subtitle {
-  -webkit-animation: text-focus-in 1s cubic-bezier(0.55, 0.085, 0.68, 0.53) 3.2s
+  -webkit-animation: text-focus-in 1s cubic-bezier(0.55, 0.085, 0.68, 0.53) 2s
     both;
-  animation: text-focus-in 1s cubic-bezier(0.55, 0.085, 0.68, 0.53) 3.2s both;
+  animation: text-focus-in 1s cubic-bezier(0.55, 0.085, 0.68, 0.53) 2s both;
 }
 
 @-webkit-keyframes text-focus-in {
@@ -125,7 +125,7 @@ body {
 .note-amination {
   position: absolute;
   font-size: 35px;
-  animation-delay: 4s;
+  animation-delay: 3s;
   animation-name: notes;
   animation-duration: 2s;
   animation-iteration-count: infinite;
@@ -242,9 +242,9 @@ body {
 }
 
 .button-effect {
-  -webkit-animation: fade-in-fwd 0.6s cubic-bezier(0.39, 0.575, 0.565, 1) 4.7s
+  -webkit-animation: fade-in-fwd 0.6s cubic-bezier(0.39, 0.575, 0.565, 1) 2.3s
     both;
-  animation: fade-in-fwd 0.6s cubic-bezier(0.39, 0.575, 0.565, 1) 4.7s both;
+  animation: fade-in-fwd 0.6s cubic-bezier(0.39, 0.575, 0.565, 1) 2.3s both;
 }
 
 @-webkit-keyframes fade-in-fwd {

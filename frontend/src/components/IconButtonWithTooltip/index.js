@@ -6,7 +6,9 @@ import IconButton from '@mui/material/IconButton';
 export default function IconButtonWithTooltip({ icon, title, ...props }) {
   return (
     <Tooltip title={title ? title : ''}>
-      <IconButton {...props}>{icon}</IconButton>
+      <IconButton {...props} aria-label={title}>
+        {icon}
+      </IconButton>
     </Tooltip>
   );
 }

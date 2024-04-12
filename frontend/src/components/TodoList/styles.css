@@ -1,0 +1,41 @@
+.infinite-scroll-component__outerdiv {
+  width: 100%;
+}
+
+.list-item {
+  border-bottom: 1px solid #ffffff4f;
+}
+
+.todo-list-container {
+  display: flex;
+  color: #fff;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.todo-list-container::-webkit-scrollbar {
+  width: 5px;
+}
+
+.todo-list-container::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+}
+
+.todo-list-container::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.status-done {
+  text-decoration: line-through !important;
+}
+
+.todo-list-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  border-bottom: 1;
+  borde-color: #ffffff4f;
+}
