@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import NavigationBar from '../../components/NavigationBar';
 
 import notFound from '../../assets/images/notfound.gif';
 import './styles.css';
+
 export default function NotFound() {
+  useEffect(() => {
+    document.title = 'Not found!!!';
+  }, []);
   return (
     <>
       <NavigationBar />
