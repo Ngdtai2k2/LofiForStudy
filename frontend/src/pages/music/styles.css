@@ -6,6 +6,10 @@ body {
   height: 100%;
 }
 
+.infinite-scroll-component__outerdiv {
+  width: 100%;
+}
+
 .icon-style {
   font-size: 25px;
   color: #ffffff;
@@ -29,6 +33,13 @@ body {
   top: 0;
   left: 0;
   z-index: -1;
+}
+
+.react-player {
+  position: absolute;
+  top: 100000px;
+  left: 100000px;
+  z-index: -10000;
 }
 
 .content-container {
@@ -125,10 +136,6 @@ body {
   height: 0;
   -webkit-box-shadow: -200px 0 0 200px var(--level-color);
   box-shadow: -200px 0 0 200px var(--level-color);
-}
-
-.slider:hover .level {
-  height: calc(var(--slider-height) * 2);
 }
 
 .flex-column-center {
