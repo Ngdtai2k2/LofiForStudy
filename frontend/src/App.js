@@ -6,23 +6,36 @@ import {
   Navigate,
 } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { jwtDecode } from 'jwt-decode';
 
 import Home from './pages/home';
 import Music from './pages/music';
 import Admin from './admin';
 import NotFound from './pages/notFound';
+import AdminNotFound from './admin/page/adminNotFound';
 
 function App() {
   const user = useSelector((state) => state.auth.login?.currentUser);
+  const accessToken = user?.accessToken;
+
+  const decodedToken =
+    typeof accessToken === 'string' ? jwtDecode(accessToken) : null;
+
   const isAdmin = () => {
-    return user?.isAdmin;
+    if (!user || !decodedToken) return false;
+    return decodedToken?.isAdmin || false;
   };
+
   return (
     <Router>
       <Routes>
         <Route
           path="/admin"
           element={isAdmin() ? <Admin /> : <Navigate to="/404" />}
+        />
+        <Route
+          path="/admin/*"
+          element={isAdmin() ? <AdminNotFound /> : <Navigate to="/404" />}
         />
         <Route path="/" element={<Home />} />
         <Route path="/music" element={<Music />} />

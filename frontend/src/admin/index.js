@@ -1,5 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import NavigationBar from './components/NavigationBar';
 
 export default function Admin() {
-  return <div>Admin</div>;
+  useEffect(() => {
+    document.title = 'Admin';
+  }, []);
+  return (
+    <>
+      <NavigationBar />
+      <div>Admin</div>
+    </>
+  );
 }
