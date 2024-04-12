@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 
 import Home from './pages/home';
 import Music from './pages/music';
-import Admin from './pages/admin';
+import Admin from './admin';
 import NotFound from './pages/notFound';
 
 function App() {
