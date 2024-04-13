@@ -8,6 +8,8 @@ export const toastTheme = {
 
 export const BASE_API_URL = process.env.REACT_APP_BASE_URL;
 
+export const BASE_API_ADMIN_URL = process.env.REACT_APP_BASE_URL + '/admin';
+
 export const YOUTUBE_URL = process.env.REACT_APP_YOUTUBE_URL;
 
 export const YOUTUBE_API_KEY = process.env.REACT_APP_YOUTUBE_API_KEY;

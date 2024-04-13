@@ -10,9 +10,9 @@ import { jwtDecode } from 'jwt-decode';
 
 import Home from './pages/home';
 import Music from './pages/music';
-import Admin from './admin';
 import NotFound from './pages/notFound';
 import AdminNotFound from './admin/page/adminNotFound';
+import DashBoard from './admin/page/DashBoard';
 
 function App() {
   const user = useSelector((state) => state.auth.login?.currentUser);
@@ -31,7 +31,7 @@ function App() {
       <Routes>
         <Route
           path="/admin"
-          element={isAdmin() ? <Admin /> : <Navigate to="/404" />}
+          element={isAdmin() ? <DashBoard /> : <Navigate to="/404" />}
         />
         <Route
           path="/admin/*"
