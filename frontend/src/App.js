@@ -11,7 +11,7 @@ import { jwtDecode } from 'jwt-decode';
 import Home from './pages/home';
 import Music from './pages/music';
 import NotFound from './pages/notFound';
-import AdminNotFound from './admin/page/adminNotFound';
+import AdminNotFound from './admin/page/AdminNotFound';
 import DashBoard from './admin/page/DashBoard';
 
 function App() {
