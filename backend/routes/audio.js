@@ -5,7 +5,7 @@ const verifyMiddleware = require("../middleware/verifyToken");
 const storage = require("../configs/multer");
 
 router.get("/", audioController.getAll);
-router.post("/create", storage.single("file"), audioController.create);
-router.post("/delete/:id", audioController.delete);
+router.post("/create", verifyMiddleware.tokenAndAdminAuth, storage.single("file"), audioController.create);
+router.post("/delete/:id", verifyMiddleware.tokenAndAdminAuth, audioController.delete);
 
 module.exports = router;
