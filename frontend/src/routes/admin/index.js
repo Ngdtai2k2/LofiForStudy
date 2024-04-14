@@ -1,6 +1,6 @@
 import DashBoard from '../../admin/page/DashBoard';
 import UsersManger from '../../admin/page/UsersManager';
-import AdminNotFound from '../../admin/page/adminNotFound';
+import AdminNotFound from '../../admin/page/AdminNotFound';
 
 export const adminRoutes = [
   { path: '/admin', element: <DashBoard /> },
