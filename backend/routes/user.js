@@ -3,7 +3,7 @@ const userController = require("../controllers/userController");
 const verifyMiddleware = require("../middleware/verifyToken");
 const storage = require("../configs/multer");
 
-router.get("/", verifyMiddleware.token, userController.getAllUsers);
+router.get("/", verifyMiddleware.tokenAndAdminAuth, userController.getAllUsers);
 router.get("/:id", userController.findUserById);
 router.delete(
   "/:id",

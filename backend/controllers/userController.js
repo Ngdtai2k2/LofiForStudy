@@ -8,7 +8,7 @@ const createOptions = require("./../configs/createOptions");
 const userController = {
   getAllUsers: async (req, res) => {
     try {
-      const options = createOptions(req, "-password -isAdmin");
+      const options = createOptions(req, "-password");
       const users = await User.paginate({}, options);
 
       return res.status(200).json({ users });

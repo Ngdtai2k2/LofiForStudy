@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import Grid from "@mui/material/Grid";
-import Paper from "@mui/material/Paper";
-import Typography from "@mui/material/Typography";
-import CircularProgress from "@mui/material/CircularProgress";
-import Box from "@mui/material/Box";
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 import AccountBoxRoundedIcon from '@mui/icons-material/AccountBoxRounded';
 
-import NavigationBar from "../../components/NavigationBar";
-import BoxTop from "../../components/BoxTop";
+import NavigationBar from '../../components/NavigationBar';
+import BoxTop from '../../components/BoxTop';
 
-import { BASE_API_ADMIN_URL } from "../../../constants/constant";
-import { createAxios } from "../../../createInstance";
+import { BASE_API_ADMIN_URL } from '../../../constants/constant';
+import { createAxios } from '../../../createInstance';
 
-import "./styles.css";
+import './styles.css';
 
 export default function DashBoard() {
   const [totalUsers, setTotalUsers] = useState(0);
@@ -28,7 +28,7 @@ export default function DashBoard() {
   const axiosJWT = createAxios(user, dispatch);
 
   useEffect(() => {
-    document.title = "Dashboard";
+    document.title = 'Dashboard';
   }, []);
 
   useEffect(() => {
@@ -38,11 +38,11 @@ export default function DashBoard() {
           `${BASE_API_ADMIN_URL}/users/count`,
           {
             headers: { token: `Bearer ${accessToken}` },
-          }
+          },
         );
         setTotalUsers(response.data.total);
       } catch (error) {
-        setTotalUsers("NaN");
+        setTotalUsers('NaN');
       } finally {
         setLoadingGetTotal(false);
       }
@@ -62,15 +62,15 @@ export default function DashBoard() {
               <Typography variant="caption" fontWeight={600}>
                 Total Users
               </Typography>
-                {loadingGetTotal ? (
-                  <CircularProgress size={16} />
-                ) : (
-                  <Box display="flex">
-                    <Typography variant="h6" fontWeight={700}>
-                      {totalUsers}
-                    </Typography>
-                  </Box>
-                )}
+              {loadingGetTotal ? (
+                <CircularProgress size={16} />
+              ) : (
+                <Box display="flex">
+                  <Typography variant="h6" fontWeight={700}>
+                    {totalUsers}
+                  </Typography>
+                </Box>
+              )}
             </Paper>
           </Grid>
           <Grid item xs={6} md={3}>
