@@ -40,6 +40,7 @@ export const registerUser = async (user, dispatch, setTabIndex) => {
     toast.success('Successful account registration!', toastTheme);
     setTabIndex(0);
   } catch (err) {
+    toast.error(err.response.data.message, toastTheme);
     dispatch(registerFailed());
   }
 };

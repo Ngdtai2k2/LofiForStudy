@@ -37,8 +37,13 @@ const authController = {
 
   registerUser: async (req, res) => {
     try {
+      const userByEmail = await User.findOne({email: req.body.email});
       const salt = await bcrypt.genSalt(10);
       const hashed = await bcrypt.hash(req.body.password, salt);
+
+      if (userByEmail) {
+        return res.status(400).json({ message: "Email already exists!" });
+      }
 
       const newUser = new User({
         email: req.body.email,
