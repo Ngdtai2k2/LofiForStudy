@@ -21,7 +21,7 @@ const backgroundController = {
         .status(200)
         .json({ message: "Created successfully!", background: background });
     } catch (error) {
-      return res.status(500).json({ error: error.message });
+      return res.status(500).json({ message: "An error occurred please try again later!" });
     }
   },
   randomBackground: async (req, res) => {
@@ -40,7 +40,7 @@ const backgroundController = {
       ]);
       return res.status(200).json({ background });
     } catch (error) {
-      return res.status(500).json({ error: error.message });
+      return res.status(500).json({ message: "An error occurred please try again later!" });
     }
   },
   getAll: async (req, res) => {
@@ -57,7 +57,7 @@ const backgroundController = {
       );
       return res.status(200).json({ result });
     } catch (error) {
-      return res.status(500).json({ error: error.message });
+      return res.status(500).json({ message: "An error occurred please try again later!" });
     }
   },
 };

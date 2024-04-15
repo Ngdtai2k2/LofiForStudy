@@ -34,7 +34,7 @@ const audioController = {
         .status(201)
         .json({ message: "Audio saved successfully!", audio: audio });
     } catch (error) {
-      return res.status(500).json({ error: error.message });
+      return res.status(500).json({ message: "An error occurred please try again later!" });
     }
   },
 
@@ -52,7 +52,7 @@ const audioController = {
       );
       return res.status(200).json({ result });
     } catch (error) {
-      return res.status(500).json({ error: error.message });
+      return res.status(500).json({ message: "An error occurred please try again later!" });
     }
   },
 
@@ -73,7 +73,7 @@ const audioController = {
       await Audio.findByIdAndDelete(req.params.id);
       return res.status(200).json({ message: "Audio deleted successfully!" });
     } catch (error) {
-      return res.status(500).json({ error: error.message });
+      return res.status(500).json({ message: "An error occurred please try again later!" });
     }
   },
 };

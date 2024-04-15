@@ -49,7 +49,7 @@ const authController = {
       const user = await newUser.save();
       res.status(201).json(user);
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      res.status(500).json({ message: "An error occurred please try again later!" });
     }
   },
 
@@ -98,7 +98,7 @@ const authController = {
         return res.status(200).json(responseData);
       }
     } catch (error) {
-      return res.status(500).json({ error: error.message });
+      return res.status(500).json({ message: "An error occurred please try again later!" });
     }
   },
 
@@ -153,7 +153,7 @@ const authController = {
         }
       );
     } catch (error) {
-      return res.status(500).json({ error: error.message });
+      return res.status(500).json({ message: "An error occurred please try again later!" });
     }
   },
 
@@ -165,7 +165,7 @@ const authController = {
 
       return res.status(200).json({ message: "Successfully logged out!" });
     } catch (error) {
-      return res.status(500).json({ error: error.message });
+      return res.status(500).json({ message: "An error occurred please try again later!" });
     }
   },
 
@@ -195,7 +195,7 @@ const authController = {
 
       return res.status(200).json({ user: updatedUser, message: "Changed password!" });
     } catch (error) {
-      return res.status(500).json({ error: error.message });
+      return res.status(500).json({ message: "An error occurred please try again later!" });
     }
   },
 };
