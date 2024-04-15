@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 import { format } from 'date-fns';
 
 import Typography from '@mui/material/Typography';
@@ -13,7 +14,6 @@ import { BASE_API_URL, toastTheme } from '../../../constants/constant';
 import BoxTop from '../../components/BoxTop';
 
 import '../styles.css';
-import { toast } from 'react-toastify';
 
 export default function UsersManger() {
   const [pageState, setPageState] = useState({
