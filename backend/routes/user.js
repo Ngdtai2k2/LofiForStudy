@@ -16,5 +16,6 @@ router.put(
   storage.single("file"),
   userController.updateUserById
 );
+router.post('/change-role/:id', verifyMiddleware.tokenAndAdminAuth, userController.changeRole);
 
 module.exports = router;

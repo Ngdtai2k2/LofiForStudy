@@ -13,7 +13,29 @@ const userController = {
 
       return res.status(200).json({ users });
     } catch (error) {
-      return res.status(500).json({ error: error.message });
+      return res.status(500).json({ message: "An error occurred please try again later!" });
+    }
+  },
+
+  changeRole: async (req, res) => {
+    try {
+      const user = await User.findById(req.params.id);
+      if (!user) {
+        return res.status(404).json({ message: "User not found!" });
+      }
+      // req.body.id is the id of the person making the API call
+      if (user._id.toString() === req.body.id) {
+        return res.status(400).json({ message: "You can't change your own role!" });
+      }
+      if (user.isAdmin) {
+        user.isAdmin = false;
+      } else {
+        user.isAdmin = true;
+      }
+      await user.save();
+      return res.status(200).json({ message: "Change user role successfully!" });
+    } catch (error) {
+      return res.status(500).json({ message: "An error occurred please try again later!" });
     }
   },
 
@@ -25,7 +47,7 @@ const userController = {
       }
       return res.status(200).json({ message: "User deleted successfully!" });
     } catch (error) {
-      return res.status(500).json({ error: error.message });
+      return res.status(500).json({ message: "An error occurred please try again later!" });
     }
   },
 
@@ -42,7 +64,7 @@ const userController = {
       }
       return res.status(200).json({ user });
     } catch (error) {
-      return res.status(500).json({ error: error.message });
+      return res.status(500).json({ message: "An error occurred please try again later!" });
     }
   },
 

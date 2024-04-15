@@ -3,15 +3,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { format } from 'date-fns';
 
 import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 
 import NavigationBar from '../../components/NavigationBar';
 import { createAxios } from '../../../createInstance';
-import { BASE_API_URL } from '../../../constants/constant';
+import { BASE_API_URL, toastTheme } from '../../../constants/constant';
 import BoxTop from '../../components/BoxTop';
 
 import '../styles.css';
+import { toast } from 'react-toastify';
 
 export default function UsersManger() {
   const [pageState, setPageState] = useState({
@@ -31,23 +33,23 @@ export default function UsersManger() {
   useEffect(() => {
     document.title = 'Users Manager';
   }, []);
+  const fetchData = async () => {
+    setPageState((old) => ({ ...old, isLoading: true }));
+    const response = await axiosJWT.get(
+      `${BASE_API_URL}/user?_page=${pageState.page}&_limit=${pageState.pageSize}`,
+      {
+        headers: { token: `Bearer ${accessToken}` },
+      },
+    );
+    setPageState((old) => ({
+      ...old,
+      isLoading: false,
+      data: response?.data.users.docs,
+      total: response?.data.users.totalDocs,
+    }));
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      setPageState((old) => ({ ...old, isLoading: true }));
-      const response = await axiosJWT.get(
-        `${BASE_API_URL}/user?_page=${pageState.page}&_limit=${pageState.pageSize}`,
-        {
-          headers: { token: `Bearer ${accessToken}` },
-        },
-      );
-      setPageState((old) => ({
-        ...old,
-        isLoading: false,
-        data: response?.data.users.docs,
-        total: response?.data.users.totalDocs,
-      }));
-    };
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pageState.page, pageState.pageSize]);
@@ -87,7 +89,41 @@ export default function UsersManger() {
       valueGetter: (params) =>
         format(new Date(params.row.updatedAt), 'HH:mm:ss dd/MM/yyyy'),
     },
+    {
+      field: 'actions',
+      headerName: 'Actions',
+      width: 150,
+      renderCell: (params) => {
+        return (
+          <Button
+            variant="outlined"
+            onClick={() => handleChangeRole(params.row._id)}
+          >
+            Change Role
+          </Button>
+        );
+      },
+    },
   ];
+
+  const handleChangeRole = async (id) => {
+    try {
+      const response = await axiosJWT.post(
+        `${BASE_API_URL}/user/change-role/${id}`,
+        {
+          id: user?._id,
+        },
+        {
+          headers: { token: `Bearer ${accessToken}` },
+          'Content-Type': 'multipart/form-data',
+        },
+      );
+      fetchData();
+      toast.success(response.data.message, toastTheme);
+    } catch (e) {
+      toast.error(e.response.data.message, toastTheme);
+    }
+  };
 
   return (
     <>
