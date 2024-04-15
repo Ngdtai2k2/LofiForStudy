@@ -34,7 +34,9 @@ const audioController = {
         .status(201)
         .json({ message: "Audio saved successfully!", audio: audio });
     } catch (error) {
-      return res.status(500).json({ message: "An error occurred please try again later!" });
+      return res
+        .status(500)
+        .json({ message: "An error occurred please try again later!" });
     }
   },
 
@@ -52,7 +54,9 @@ const audioController = {
       );
       return res.status(200).json({ result });
     } catch (error) {
-      return res.status(500).json({ message: "An error occurred please try again later!" });
+      return res
+        .status(500)
+        .json({ message: "An error occurred please try again later!" });
     }
   },
 
@@ -62,18 +66,43 @@ const audioController = {
         path: "media",
         select: "_id cloudinary_id",
       });
+
       if (!audio) {
         return res.status(404).json({ message: "Audio not found!" });
       }
-      await uploadCloudinaryController.deleteFile(
-        audio.media.cloudinary_id,
-        "video"
-      );
-      await mediaController.delete(audio.media._id);
+      if (!audio.isEmbed) {
+        await uploadCloudinaryController.deleteFile(
+          audio.media.cloudinary_id,
+          "video"
+        );
+        await mediaController.delete(audio.media._id);
+      }
       await Audio.findByIdAndDelete(req.params.id);
       return res.status(200).json({ message: "Audio deleted successfully!" });
     } catch (error) {
-      return res.status(500).json({ message: "An error occurred please try again later!" });
+      return res
+        .status(500)
+        .json({ message: "An error occurred please try again later!" });
+    }
+  },
+
+  getAllData: async (req, res) => {
+    try {
+      const options = createOptions(req);
+      let audios = await Audio.paginate({}, options);
+      audios.docs = await Promise.all(
+        audios.docs.map(async (audio) => {
+          return (audio = await Audio.populate(audio, {
+            path: "media",
+            select: "url type",
+          }));
+        })
+      );
+      return res.status(200).json({ audios });
+    } catch (error) {
+      return res
+        .status(500)
+        .json({ message: "An error occurred please try again later!" });
     }
   },
 };

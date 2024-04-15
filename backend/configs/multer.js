@@ -9,6 +9,7 @@ module.exports = multer({
       ext !== ".mp3" &&
       ext !== ".wav" &&
       ext !== ".wma" &&
+      ext !== ".mpeg" &&
       ext !== ".jpeg" &&
       ext !== ".jpg" &&
       ext !== ".png" &&
