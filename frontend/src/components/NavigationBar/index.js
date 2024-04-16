@@ -134,11 +134,8 @@ export default function NavigationBar() {
               openModal={openModal}
               handleCloseModal={handleCloseModal}
             />
-            <MenuItem onClick={() => handelNavigate('/profile/' + user?._id)}>
+            <MenuItem onClick={() => handelNavigate('/profile')}>
               Profile
-            </MenuItem>
-            <MenuItem onClick={() => handelNavigate('/settings')}>
-              Settings
             </MenuItem>
             <MenuItem
               onClick={() => setMode(mode === 'light' ? 'dark' : 'light')}
