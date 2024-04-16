@@ -39,7 +39,7 @@ const authController = {
 
   registerUser: async (req, res) => {
     try {
-      const userByEmail = await User.findOne({email: req.body.email});
+      const userByEmail = await User.findOne({ email: req.body.email });
       const salt = await bcrypt.genSalt(10);
       const hashed = await bcrypt.hash(req.body.password, salt);
 
@@ -56,7 +56,9 @@ const authController = {
       const user = await newUser.save();
       res.status(201).json(user);
     } catch (error) {
-      res.status(500).json({ message: "An error occurred please try again later!" });
+      res
+        .status(500)
+        .json({ message: "An error occurred please try again later!" });
     }
   },
 
@@ -64,7 +66,7 @@ const authController = {
     try {
       const user = await User.findOne({
         email: req.body.email,
-      }).populate('media');
+      }).populate("media");
 
       if (!user) {
         return res.status(404).json({ message: "Email not found!" });
@@ -87,7 +89,7 @@ const authController = {
         const newRefreshToken = new RefreshToken({
           token: refreshToken,
           user: user._id,
-          device: device
+          device: device,
         });
         await newRefreshToken.save();
 
@@ -102,14 +104,21 @@ const authController = {
 
         const { password, ...others } = user._doc;
 
-        let responseData = { ...others, accessToken, device, message: "Login success!" };
+        let responseData = {
+          ...others,
+          accessToken,
+          device,
+          message: "Login success!",
+        };
         if (user.media) {
           responseData.media = user.media;
         }
         return res.status(200).json(responseData);
       }
     } catch (error) {
-      return res.status(500).json({ message: "An error occurred please try again later!" });
+      return res
+        .status(500)
+        .json({ message: "An error occurred please try again later!" });
     }
   },
 
@@ -117,7 +126,10 @@ const authController = {
     let refreshToken = req.cookies.refreshToken;
 
     if (!refreshToken) {
-      const dataToken = await RefreshToken.findOne({user: req.params.id, device: req.params.device});
+      const dataToken = await RefreshToken.findOne({
+        user: req.params.id,
+        device: req.params.device,
+      });
       refreshToken = dataToken?.token;
       if (!refreshToken) {
         return res.status(401).json({ message: "You're not authenticated!" });
@@ -128,6 +140,7 @@ const authController = {
       const refreshTokenDoc = await RefreshToken.findOne({
         token: refreshToken,
       });
+
       if (!refreshTokenDoc) {
         return res.status(403).json({ message: "Refresh token is not valid!" });
       }
@@ -156,9 +169,9 @@ const authController = {
             path: "/",
             sameSite: "strict",
           });
-          
-        const encryptAccessToken = encryptToken(newAccessToken);
-        
+
+          const encryptAccessToken = encryptToken(newAccessToken);
+
           return res.status(200).json({
             accessToken: encryptAccessToken,
             refreshToken: newRefreshToken,
@@ -166,7 +179,9 @@ const authController = {
         }
       );
     } catch (error) {
-      return res.status(500).json({ message: "An error occurred please try again later!" });
+      return res
+        .status(500)
+        .json({ message: "An error occurred please try again later!" });
     }
   },
 
@@ -178,7 +193,9 @@ const authController = {
 
       return res.status(200).json({ message: "Successfully logged out!" });
     } catch (error) {
-      return res.status(500).json({ message: "An error occurred please try again later!" });
+      return res
+        .status(500)
+        .json({ message: "An error occurred please try again later!" });
     }
   },
 
@@ -206,9 +223,13 @@ const authController = {
       user.password = hashedPassword;
       const updatedUser = await user.save();
 
-      return res.status(200).json({ user: updatedUser, message: "Changed password!" });
+      return res
+        .status(200)
+        .json({ user: updatedUser, message: "Changed password!" });
     } catch (error) {
-      return res.status(500).json({ message: "An error occurred please try again later!" });
+      return res
+        .status(500)
+        .json({ message: "An error occurred please try again later!" });
     }
   },
 };

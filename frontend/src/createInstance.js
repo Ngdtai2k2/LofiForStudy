@@ -30,7 +30,7 @@ export const createAxios = (user, dispatch, stateSuccess) => {
         const data = await refreshToken(user?._id, user?.device);
         const refreshUser = {
           ...user,
-          accessToken: data.accessToken,
+          accessToken: data?.accessToken,
         };
         if (stateSuccess) {
           dispatch(stateSuccess(refreshUser));
