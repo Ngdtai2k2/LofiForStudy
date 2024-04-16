@@ -8,9 +8,9 @@ const encryptToken = (token) => {
   return encryptedToken;
 };
 
-export const decryptToken = (encryptedToken) => {
+const decryptToken = (encryptedToken) => {
   try {
-    const bytes = CryptoJS.AES.decrypt(encryptedToken, SECRET_KEY);
+    const bytes = CryptoJS.AES.decrypt(encryptedToken, process.env.SECRET_KEY);
     if (bytes.sigBytes === 0) {
       throw new Error('Invalid token');
     }
