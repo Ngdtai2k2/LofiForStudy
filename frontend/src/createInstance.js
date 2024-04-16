@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
 import { BASE_API_URL } from './constants/constant';
+import { decryptToken } from './utils/encodeToken';
 
 const refreshToken = async (id, device) => {
   try {
@@ -19,10 +20,12 @@ const refreshToken = async (id, device) => {
 
 export const createAxios = (user, dispatch, stateSuccess) => {
   const newInstance = axios.create();
+  const decodedTokenByCrypto = decryptToken(user?.accessToken);
+
   newInstance.interceptors.request.use(
     async (config) => {
       let date = new Date();
-      const decodedToken = jwtDecode(user?.accessToken);
+      const decodedToken = jwtDecode(decodedTokenByCrypto);
       if (decodedToken.exp < date.getTime() / 1000) {
         const data = await refreshToken(user?._id, user?.device);
         const refreshUser = {

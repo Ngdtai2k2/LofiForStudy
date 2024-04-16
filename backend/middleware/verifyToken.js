@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const { decryptToken } = require("../untils/encodeToken");
 
 const verifyMiddleware = {
   token: (req, res, next) => {
@@ -9,7 +10,9 @@ const verifyMiddleware = {
       });
     }
     const accessToken = token.split(" ")[1];
-    jwt.verify(accessToken, process.env.JWT_ACCESS_KEY, (err, user) => {
+    const decryptAccessToken = decryptToken(accessToken)
+
+    jwt.verify(decryptAccessToken, process.env.JWT_ACCESS_KEY, (err, user) => {
       if (err) {
         return res.status(401).json({
           error: "Invalid token!!!",

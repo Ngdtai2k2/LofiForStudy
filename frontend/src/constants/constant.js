@@ -6,6 +6,8 @@ export const toastTheme = {
   transition: Flip,
 };
 
+export const SECRET_KEY = process.env.REACT_APP_SECRET_KEY;
+
 export const BASE_API_URL = process.env.REACT_APP_BASE_URL;
 
 export const BASE_API_ADMIN_URL = process.env.REACT_APP_BASE_URL + '/admin';

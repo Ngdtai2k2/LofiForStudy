@@ -9,11 +9,13 @@ import { jwtDecode } from 'jwt-decode';
 
 import { adminRoutes } from './routes/admin';
 import { publicRoutes } from './routes/public';
+import { decryptToken } from './utils/encodeToken';
 
 function App() {
   const user = useSelector((state) => state.auth.login?.currentUser);
   const accessToken = user?.accessToken;
-  const decodedToken = accessToken ? jwtDecode(accessToken) : null;
+  const decodedTokenByCrypto = decryptToken(user?.accessToken);
+  const decodedToken = accessToken ? jwtDecode(decodedTokenByCrypto) : null;
   const isAdmin = decodedToken ? decodedToken.isAdmin || false : false;
 
   return (

@@ -6,6 +6,8 @@ const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 const uuid = require("uuid");
+const { encryptToken } = require("../untils/encodeToken");
+
 dotenv.config();
 
 const authController = {
@@ -78,7 +80,7 @@ const authController = {
       }
 
       if (user && validPassword) {
-        const accessToken = authController.generateAccessToken(user);
+        let accessToken = authController.generateAccessToken(user);
         const refreshToken = authController.generateRefreshToken(user);
         const device = uuid.v4();
 
@@ -95,7 +97,11 @@ const authController = {
           path: "/",
           sameSite: "strict",
         });
+
+        accessToken = encryptToken(accessToken);
+
         const { password, ...others } = user._doc;
+
         let responseData = { ...others, accessToken, device, message: "Login success!" };
         if (user.media) {
           responseData.media = user.media;
@@ -150,9 +156,11 @@ const authController = {
             path: "/",
             sameSite: "strict",
           });
-
+          
+        const encryptAccessToken = encryptToken(newAccessToken);
+        
           return res.status(200).json({
-            accessToken: newAccessToken,
+            accessToken: encryptAccessToken,
             refreshToken: newRefreshToken,
           });
         }
