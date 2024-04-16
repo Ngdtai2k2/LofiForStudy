@@ -143,7 +143,19 @@ export default function SongManager() {
     <>
       <NavigationBar />
       <BoxTop>
-        <Box display="flex" justifyContent="space-between">
+        <Box
+          display="flex"
+          gap={2}
+          sx={{
+            justifyContent: {
+              md: 'space-between',
+            },
+            flexDirection: {
+              xs: 'column',
+              md: 'row',
+            },
+          }}
+        >
           <Typography variant="h5" fontWeight={700}>
             Audio Manager
           </Typography>
