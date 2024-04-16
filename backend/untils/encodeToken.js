@@ -8,10 +8,17 @@ const encryptToken = (token) => {
   return encryptedToken;
 };
 
-const decryptToken = (encryptedToken) => {
-  const bytes = CryptoJS.AES.decrypt(encryptedToken, process.env.SECRET_KEY);
-  const decryptedToken = bytes.toString(CryptoJS.enc.Utf8);
-  return decryptedToken;
+export const decryptToken = (encryptedToken) => {
+  try {
+    const bytes = CryptoJS.AES.decrypt(encryptedToken, SECRET_KEY);
+    if (bytes.sigBytes === 0) {
+      throw new Error('Invalid token');
+    }
+    const decryptedToken = bytes.toString(CryptoJS.enc.Utf8);
+    return decryptedToken;
+  } catch (error) {
+    return null;
+  }
 };
 
 module.exports = {
