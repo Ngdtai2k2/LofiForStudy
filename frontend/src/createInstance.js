@@ -5,7 +5,7 @@ import { BASE_API_URL } from './constants/constant';
 const refreshToken = async (id, device) => {
   try {
     const res = await axios.post(
-      BASE_API_URL + '/auth/refresh/' + id + '/' + device,
+      BASE_API_URL + '/auth/refresh/' + id + '/' + device, null,
       {
         withCredentials: true,
       },
