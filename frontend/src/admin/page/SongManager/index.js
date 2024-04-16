@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { DataGrid } from '@mui/x-data-grid';
 import Link from '@mui/material/Link';
+import LoadingButton from '@mui/lab/LoadingButton';
 
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import AddIcon from '@mui/icons-material/Add';
@@ -29,6 +29,7 @@ export default function SongManager() {
     pageSize: 5,
   });
   const [openModal, setOpenModal] = useState(false);
+  const [loadingRows, setLoadingRows] = useState({});
 
   const dispatch = useDispatch();
 
@@ -63,6 +64,7 @@ export default function SongManager() {
 
   const handleDeleteAudio = async (id) => {
     try {
+      setLoadingRows((prevState) => ({ ...prevState, [id]: true }));
       const response = await axiosJWT.delete(
         `${BASE_API_URL}/audio/delete/${id}`,
         {
@@ -73,6 +75,8 @@ export default function SongManager() {
       toast.success(response.data.message, toastTheme);
     } catch (e) {
       toast.error(e.response.data.message, toastTheme);
+    } finally {
+      setLoadingRows((prevState) => ({ ...prevState, [id]: false }));
     }
   };
 
@@ -131,9 +135,14 @@ export default function SongManager() {
       width: 100,
       renderCell: (params) => {
         return (
-          <IconButton onClick={() => handleDeleteAudio(params.row._id)}>
+          <LoadingButton
+            loading={loadingRows[params.row._id]}
+            variant="outlined"
+            type="submit"
+            onClick={() => handleDeleteAudio(params.row._id)}
+          >
             <DeleteForeverIcon />
-          </IconButton>
+          </LoadingButton>
         );
       },
     },
