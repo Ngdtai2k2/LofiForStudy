@@ -1,6 +1,7 @@
 const Background = require("../models/Background");
 const uploadCloudinaryController = require("./uploadCloudinaryController");
 const createOptions = require("../configs/createOptions");
+const mediaController = require("./mediaController");
 
 const backgroundController = {
   create: async (req, res) => {
@@ -21,7 +22,9 @@ const backgroundController = {
         .status(200)
         .json({ message: "Created successfully!", background: background });
     } catch (error) {
-      return res.status(500).json({ message: "An error occurred please try again later!" });
+      return res
+        .status(500)
+        .json({ message: "An error occurred please try again later!" });
     }
   },
   randomBackground: async (req, res) => {
@@ -40,7 +43,9 @@ const backgroundController = {
       ]);
       return res.status(200).json({ background });
     } catch (error) {
-      return res.status(500).json({ message: "An error occurred please try again later!" });
+      return res
+        .status(500)
+        .json({ message: "An error occurred please try again later!" });
     }
   },
   getAll: async (req, res) => {
@@ -50,14 +55,40 @@ const backgroundController = {
 
       result.docs = await Promise.all(
         result.docs.map(async (background) => {
-          return (background = await Background.populate(background, 
-            { path: "media", select: "url type" },
-          ));
+          return (background = await Background.populate(background, {
+            path: "media",
+            select: "url type",
+          }));
         })
       );
       return res.status(200).json({ result });
     } catch (error) {
-      return res.status(500).json({ message: "An error occurred please try again later!" });
+      return res
+        .status(500)
+        .json({ message: "An error occurred please try again later!" });
+    }
+  },
+  delete: async (req, res) => {
+    try {
+      const background = await Background.findById(req.params.id).populate({
+        path: "media",
+        select: "_id cloudinary_id",
+      });
+
+      if (!background) {
+        return res.status(404).json({ message: "Background not found!" });
+      }
+      await uploadCloudinaryController.deleteFile(
+        background.media.cloudinary_id
+      );
+      await mediaController.delete(background.media._id);
+      await Background.findByIdAndDelete(req.params.id);
+
+      return res.status(200).json({ message: "Background deleted successfully!" });
+    } catch (error) {
+      return res
+        .status(500)
+        .json({ message: "An error occurred please try again later!" });
     }
   },
 };
