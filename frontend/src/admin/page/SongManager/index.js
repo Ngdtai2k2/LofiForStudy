@@ -1,24 +1,24 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import { DataGrid } from '@mui/x-data-grid';
-import Link from '@mui/material/Link';
-import LoadingButton from '@mui/lab/LoadingButton';
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import { DataGrid } from "@mui/x-data-grid";
+import Link from "@mui/material/Link";
+import LoadingButton from "@mui/lab/LoadingButton";
 
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import AddIcon from '@mui/icons-material/Add';
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import AddIcon from "@mui/icons-material/Add";
 
-import NavigationBar from '../../components/NavigationBar';
-import BoxTop from '../../components/BoxTop';
-import { createAxios } from '../../../createInstance';
-import { BASE_API_URL, toastTheme } from '../../../constants/constant';
+import NavigationBar from "../../components/NavigationBar";
+import BoxTop from "../../components/BoxTop";
+import { createAxios } from "../../../createInstance";
+import { BASE_API_URL, toastTheme } from "../../../constants/constant";
 
-import '../styles.css';
-import { toast } from 'react-toastify';
-import ModalAddSong from '../../components/ModalAddSong';
+import "../styles.css";
+import { toast } from "react-toastify";
+import ModalAddSong from "../../components/ModalAddSong";
 
 export default function SongManager() {
   const [pageState, setPageState] = useState({
@@ -43,7 +43,7 @@ export default function SongManager() {
       `${BASE_API_URL}/audio/all-audio?_page=${pageState.page}&_limit=${pageState.pageSize}`,
       {
         headers: { token: `Bearer ${accessToken}` },
-      },
+      }
     );
     setPageState((old) => ({
       ...old,
@@ -59,7 +59,7 @@ export default function SongManager() {
   }, [pageState.page, pageState.pageSize]);
 
   useEffect(() => {
-    document.title = 'Songs Manager';
+    document.title = "Songs Manager";
   });
 
   const handleDeleteAudio = async (id) => {
@@ -69,7 +69,7 @@ export default function SongManager() {
         `${BASE_API_URL}/audio/delete/${id}`,
         {
           headers: { token: `Bearer ${accessToken}` },
-        },
+        }
       );
       fetchData();
       toast.success(response.data.message, toastTheme);
@@ -82,31 +82,31 @@ export default function SongManager() {
 
   const columns = [
     {
-      field: '_id',
-      headerName: 'Id',
+      field: "_id",
+      headerName: "Id",
       width: 250,
       valueGetter: (params) => {
         return params.row._id;
       },
     },
     {
-      field: 'title',
-      headerName: 'Title',
+      field: "title",
+      headerName: "Title",
       width: 250,
     },
     {
-      field: 'artist',
-      headerName: 'Artist',
+      field: "artist",
+      headerName: "Artist",
       width: 250,
     },
     {
-      field: 'description',
-      headerName: 'Description',
+      field: "description",
+      headerName: "Description",
       width: 250,
     },
     {
-      field: 'media',
-      headerName: 'Media',
+      field: "media",
+      headerName: "Media",
       width: 110,
       renderCell: (params) =>
         !params.row.isEmbed ? (
@@ -114,12 +114,12 @@ export default function SongManager() {
             Click me
           </Link>
         ) : (
-          '---'
+          "---"
         ),
     },
     {
-      field: 'urlYoutube',
-      headerName: 'Url Youtube',
+      field: "urlYoutube",
+      headerName: "Url Youtube",
       width: 110,
       renderCell: (params) =>
         params.row.isEmbed ? (
@@ -127,18 +127,17 @@ export default function SongManager() {
             Click me
           </Link>
         ) : (
-          '---'
+          "---"
         ),
     },
     {
-      headerName: 'Action',
+      headerName: "Action",
       width: 100,
       renderCell: (params) => {
         return (
           <LoadingButton
             loading={loadingRows[params.row._id]}
             variant="outlined"
-            type="submit"
             onClick={() => handleDeleteAudio(params.row._id)}
           >
             <DeleteForeverIcon />
@@ -157,11 +156,11 @@ export default function SongManager() {
           gap={2}
           sx={{
             justifyContent: {
-              md: 'space-between',
+              md: "space-between",
             },
             flexDirection: {
-              xs: 'column',
-              md: 'row',
+              xs: "column",
+              md: "row",
             },
           }}
         >

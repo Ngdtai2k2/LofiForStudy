@@ -92,6 +92,7 @@ export default function ModalAddSong({ openModal, handleClose }) {
             'Content-Type': 'multipart/form-data',
           },
         );
+        
         resetForm();
         document.getElementById('file').value = '';
         toast.success(res.data.message, toastTheme);
